@@ -1,10 +1,63 @@
+
 <!DOCTYPE html>
 <html>
   <head>
-    <meta charset="UTF-8">
-    <title>Whats Cookin</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>What's Cookin</title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="./styles.css">
   </head>
   <body>
-    <h1>Whats Cookin</h1>
+    <header>
+      <h1>What's Cookin Good Lookin</h1>
+      <button class="login-button"></button>
+    </header> 
+    <nav>
+    <form>
+    <input class="search-bar" type="text" placeholder="search recipes">
+    <button class="search-button" type="submit"></button>
+    </form>
+     <div class="dropdown-section">
+    <button class="dropdown-buttons">Saved Recipes</button>
+     <div class="dropdown-content">
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+     </div>
+    <button class="dropdown-buttons">Courses</button>
+    <div class="dropdown-content">
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+    </div>
+    <button class="dropdown-buttons">Dietary Specificity</button>
+    <div class="dropdown-content">
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+    </div>
+    <button class="dropdown-buttons">By Price</button>
+    <div class="dropdown-content">
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+      <li class="dropdown-items">Placeholder</li>
+    </div>
+    </div>
+    </nav>
+    <main>
+      <section class="center-container">
+        <h2 class="grid-title">Recommended for You</h2>
+      <section class="cards-container">
+          <div class="card-layout">Stupid Card</div>
+          <div class="card-layout">Stupider Card</div>
+          <div class="card-layout">Stupidest Card</div>
+      </section>
+      </section>
+      <section class="recipe-view hidden">
+      </section>
+    </main> 
   </body>
+  <script src="RecipeRepository.js"></script>
 </html>
