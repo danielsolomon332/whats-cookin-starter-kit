@@ -7,6 +7,7 @@
     <title>What's Cookin</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://kit.fontawesome.com/06c158b401.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="./styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -22,45 +23,69 @@
     </header>
     <nav>
     <section class="search-container">
-      <i class="fa fa-search"></i>
       <input class="search-bar" type="text" placeholder="search recipes">
-      <input type="submit" value="Search" class="search-button">
+      <button class="spy-glass-btn">
+        <i class="fa fa-search"></i>
+      </button>
     </section>
-     <div class="dropdown-section">
-    <button class="dropdown-buttons">Saved Recipes</button>
-     <div class="dropdown-content">
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-     </div>
-    <button class="dropdown-buttons">Courses</button>
-    <div class="dropdown-content">
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-    </div>
-    <button class="dropdown-buttons">Dietary Specificity</button>
-    <div class="dropdown-content">
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-    </div>
-    <button class="dropdown-buttons">By Price</button>
-    <div class="dropdown-content">
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-      <li class="dropdown-items">Placeholder</li>
-    </div>
-    </div>
+    <section class="dropdown-section">
+      <div class="icon-button">
+        <button class="dropdown-buttons"><i class="fas fa-archive icon"></i></button>
+        <div class="dropdown-content">
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+        </div>
+      </div>
+      <div class="icon-button">
+        <button class="dropdown-buttons"><i class="fas fa-utensils icon"></i></button>
+        <div class="dropdown-content">
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+        </div>
+      </div>
+      <div class="icon-button">
+        <button class="dropdown-buttons"><i class="fas fa-pepper-hot icon"></i></button>
+        <div class="dropdown-content">
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+        </div>
+      </div>
+      <div class="icon-button">
+        <button class="dropdown-buttons"><i class="fas fa-money-bill-wave icon"></i></button>
+        <div class="dropdown-content">
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Placeholder</p>
+        </div>
+      </div>
+  </section>
     </nav>
     <main>
       <section class="center-container">
         <h2 class="grid-title">Recommended for You</h2>
-      <section class="cards-container">
-          <div class="card-layout">Stupid Card</div>
-          <div class="card-layout">Stupider Card</div>
-          <div class="card-layout">Stupidest Card</div>
-      </section>
+        <div class="cards-container">
+          <div class="recipe-card">
+            <div class="image-container">
+              <img class="recipe-image" src="https://spoonacular.com/recipeImages/325208-556x370.jpeg">
+            </div>
+            <h3 class="recipe-title">Baked Manicotti with Sausage and Peas</h3>
+          </div>
+          <div class="recipe-card">
+            <div class="image-container">
+              <img class="recipe-image" src="https://spoonacular.com/recipeImages/325208-556x370.jpeg">
+            </div>
+            <h3 class="recipe-title">Baked Manicotti with Sausage and Peas</h3>
+          </div>
+          <div class="recipe-card">
+            <div class="image-container">
+              <img class="recipe-image" src="https://spoonacular.com/recipeImages/325208-556x370.jpeg">
+            </div>
+            <h3 class="recipe-title">Baked Manicotti with Sausage and Peas</h3>
+          </div>
+        </div>
       </section>
       <section class="recipe-view hidden">
       </section>
