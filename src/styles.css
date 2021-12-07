@@ -1,3 +1,63 @@
+* {
+  font-family: 'Palanquin', sans-serif;
+}
+
 body {
-  background-color: blueviolet;
+  background-color: #FFF5EE;
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+header {
+  border-bottom: 2px solid #FF6347;
+  display: inline-flex;
+  width: 100%;
+  background-color: white;
+}
+
+h1 {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  font-family: "Copperplate";
+}
+
+.login-container {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  margin-right: 15px;
+}
+
+.login-button {
+  height: 3vh;
+  width: 10vw;
+  border-radius: 4px;
+  border: 0;
+  background-color: #FF6347;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  width: 35%;
+  height: 5vh;
+  margin-left: 15px;
+  margin-top: 20px;
+  margin-bottom: 8vh;
+  border: none;
+}
+
+.fa-search {
+  width: 10%;
+  height: 8vh;
+}
+
+.search-button {
+  background-color: transparent;
+  border: none;
 }

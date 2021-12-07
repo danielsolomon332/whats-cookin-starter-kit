@@ -8,17 +8,24 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="./styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Palanquin:wght@200;300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   </head>
   <body>
     <header>
       <h1>What's Cookin Good Lookin</h1>
-      <button class="login-button"></button>
-    </header> 
+      <div class="login-container">
+        <button class="login-button">Log In/Signup</button>
+      </div>
+    </header>
     <nav>
-    <form>
-    <input class="search-bar" type="text" placeholder="search recipes">
-    <button class="search-button" type="submit"></button>
-    </form>
+    <section class="search-container">
+      <i class="fa fa-search"></i>
+      <input class="search-bar" type="text" placeholder="search recipes">
+      <input type="submit" value="Search" class="search-button">
+    </section>
      <div class="dropdown-section">
     <button class="dropdown-buttons">Saved Recipes</button>
      <div class="dropdown-content">
@@ -57,7 +64,7 @@
       </section>
       <section class="recipe-view hidden">
       </section>
-    </main> 
+    </main>
   </body>
   <script src="RecipeRepository.js"></script>
 </html>
