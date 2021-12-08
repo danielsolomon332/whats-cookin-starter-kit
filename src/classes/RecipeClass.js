@@ -1,21 +1,44 @@
 class Recipe {
-    constructor(recipeObj, ingredientObj) {
+    constructor(recipeObj) {
         this.id = recipeObj.id;
         this.image = recipeObj.image;
         this.ingredients = recipeObj.ingredients;
         this.instructions = recipeObj.instructions;
         this.name = recipeObj.name;
-        this.tags = recipeObj.tags
-        this.ingredientList = []
+        this.tags = recipeObj.tags;
+        this.ingredientList = [];
+        this.total = 0;
     };
-    // ingredientsNeeded(recipe) {
-    //  this.ingredients.Recipe
-    //  input: ingredient array of objects
-    //  convert to array of values
-    //  access id at index 0
-    // 
 
-    //     };
+    listIngredients(ingredients) {
+      const result = this.ingredients.map(ingredient => {
+        var item = ingredients.find(item => {
+          if(item.id === ingredient.id) {
+            return item;
+          }
+        })
+        return item.name;
+      })
+      this.ingredientList = result;
     };
+
+    calculateCost(ingredients) {
+      const result = this.ingredients.reduce((sum, ingredient) => {
+        var item = ingredients.find(item => {
+          if(item.id === ingredient.id) {
+            return item;
+          }
+        })
+        sum += item.estimatedCostInCents * ingredient.quantity.amount;
+        return sum;
+      }, 0);
+      this.total = result;
+    };
+
+    giveInstructions() {
+      return this.instructions;
+    }
+  };
+
 
 module.exports = Recipe;
