@@ -1,5 +1,5 @@
 const recipeData =
-    {
+    [{
       "id": 595736,
       "image": "https://spoonacular.com/recipeImages/595736-556x370.jpg",
       "ingredients": [
@@ -116,6 +116,6 @@ const recipeData =
         "antipasto",
         "hor d'oeuvre"
       ]
-    }
+    }]
 
     module.exports = recipeData;

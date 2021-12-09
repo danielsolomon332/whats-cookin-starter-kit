@@ -1,7 +1,5 @@
-const Ingredient = require("../src/classes/IngredientClass.js");
-const chai = require("chai");
-const expect = chai.expect;
-const mocha = require("mocha");
+import { expect } from 'chai';
+import Ingredient from "../src/classes/IngredientClass.js";
 
 describe('Ingredient', () => {
     let ingredient = null;
@@ -23,5 +21,3 @@ describe('Ingredient', () => {
         expect(ingredient.cost).to.equal(142);
     });
 });
-
-

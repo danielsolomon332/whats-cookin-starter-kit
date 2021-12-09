@@ -1,16 +1,14 @@
-const Recipe = require("../src/classes/RecipeClass.js");
-const Ingredient = require("../src/classes/IngredientClass.js");
-const ingredientsData = require("./test-ingredients.js")
-const recipeData = require("./test-recipe.js")
-const chai = require("chai");
-const expect = chai.expect;
-const mocha = require("mocha");
+import { expect } from 'chai';
+import Recipe from "../src/classes/RecipeClass.js";
+import Ingredient from "../src/classes/IngredientClass.js";
+import ingredientsData from "./test-ingredients.js";
+import recipeData from "./test-recipe.js";
 
 describe('Recipe', () => {
     let recipe = null;
 
     beforeEach(() => {
-        recipe = new Recipe(recipeData);
+        recipe = new Recipe(recipeData[0]);
 });
 
     it('should be a function', () => {
