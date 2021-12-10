@@ -6,27 +6,31 @@ import recipeData from "./data/recipes.js";
 
 const cardsContainer = document.querySelector('#cardsContainer');
 
-const cookBook = new RecipeRepository(recipeData, ingredientsData)
+const cookBook = new RecipeRepository(recipeData, ingredientsData);
+
+const makeAllCards = () => {
+  cookBook.createRecipeCard(recipeData);
+  showAllRecipes();
+}
 
 const showAllRecipes = () => {
   cardsContainer.innerHTML = '';
-  const result = cookBook.recipes.reduce((acc, recipe) => {
+    cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
     acc += `<div class="recipe-card">
     <div class="image-container">
     <div class="icon-button">
     <button class="dropdown-buttons"><i class="far fa-star"></i></button>
     </div>
-    <img class="recipe-image" src=${cookbook.recipes[recipe][image]}>
+    <img class="recipe-image" src=${recipe.image}>
     </div>
-    <h3 class="recipe-title">${cookbook.recipes[recipe][title]}</h3>
+    <h3 class="recipe-title">${recipe.name}</h3>
     </div>`
 
     return acc
-}, '')
-    return result
-}
+}, '');
+};
 
 
 console.log('Hello world');
 
-window.addEventListener('load', showAllRecipes)
+window.addEventListener('load', makeAllCards)
