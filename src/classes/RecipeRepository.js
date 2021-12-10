@@ -1,6 +1,6 @@
 import Recipe from "./RecipeClass.js";
 import Ingredient from "./IngredientClass.js";
-// import ingredientsData from "./test/test-ingredients.js";
+
 
 class RecipeRepository {
   constructor(recipeList, ingredientsData) {
