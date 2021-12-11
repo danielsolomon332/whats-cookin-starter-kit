@@ -37,6 +37,19 @@ const showAllRecipes = () => {
 }, '');
 };
 
+const displayIngredients = (clickedRecipe) => {
+  return clickedRecipe.ingredientList.reduce((acc, ingredient) => {
+    acc += `<li>${ingredient}</li>`
+    return acc
+  }, '')
+}
+
+const displayInstructions = (clickedRecipe) => {
+  return clickedRecipe.instructions.reduce((acc, instruction) => {
+    acc += `<li>${instruction.instruction}</li>`
+    return acc
+  }, '')
+}
 
 
 const viewRecipe = () => {
@@ -54,12 +67,10 @@ const findRecipe = (recipeId, cookBook) => {
 }
 
 const assignContent = (clickedRecipe) => {
-  let bob = `${clickedRecipe.image}`
-  console.log(bob);
   rvImg.src = `${clickedRecipe.image}`;
   rvTitle.innerText = `${clickedRecipe.name}`;
-  rvIngredients.innerHTML = `${clickedRecipe.ingredients}`;
-  rvInstructions.innerHTML = `${clickedRecipe.instructions}`;
+  rvIngredients.innerHTML = displayIngredients(clickedRecipe);
+  rvInstructions.innerHTML = displayInstructions(clickedRecipe);
 };
 
 
@@ -79,9 +90,6 @@ const show = (toShow) => {
     element.classList.remove('hidden');
   })
 }
-
-console.log(centerContainer);
-console.log('Hello world');
 
 window.addEventListener('load', makeAllCards)
 centerContainer.addEventListener('click', (event) => {
