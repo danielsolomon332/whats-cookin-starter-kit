@@ -32,8 +32,8 @@ const showAllRecipes = () => {
       <button class="dropdown-buttons"><i class="far fa-star"></i></button>
       </div>
       <img class="recipe-image" src=${recipe.image} id="${recipe.id}">
-      </div>
       <h3 class="recipe-title">${recipe.name}</h3>
+      </div>
       </div>`
       return acc
     }, '');
@@ -74,7 +74,7 @@ const assignContent = (clickedRecipe) => {
   rvIngredients.innerHTML = displayIngredients(clickedRecipe);
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
   console.log(clickedRecipe);
-  rvCost.innerText = clickedRecipe.total;
+  rvCost.innerText = `Total Cost: $${clickedRecipe.total}`;
 };
 
 const switchHomeView = (toShow, toHide) => {
