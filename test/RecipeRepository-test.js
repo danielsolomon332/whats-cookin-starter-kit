@@ -45,5 +45,13 @@ describe('Recipe', () => {
       "antipasto",
       "hor d'oeuvre"
     ])).to.be.an('array');
-});
+  });
+  it('should have a tag list property', () => {
+    expect(cookbook.tagsList).to.be.an('array');
+  });
+  it('should be able to add tags to the array', () => {
+    cookbook.createRecipeCard(recipeData);
+    cookbook.addTags();
+    expect(cookbook.tagsList).to.have.lengthOf(6);
+  })
 })

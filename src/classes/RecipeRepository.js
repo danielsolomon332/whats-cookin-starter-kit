@@ -7,6 +7,8 @@ class RecipeRepository {
   constructor(recipeList, ingredientsData) {
     this.recipes = [];
     this.allIngredients = ingredientsData;
+    this.tagsList = [];
+
   }
   createRecipeCard(recipeList) {
     const result = recipeList.map(recipe => {
@@ -45,6 +47,16 @@ class RecipeRepository {
   });
     return result
   };
+  addTags() {
+    const result = this.recipes.forEach((recipe) => {
+      recipe.tags.forEach((tag) => {
+        if (!this.tagsList.includes(tag)) {
+        this.tagsList.push(tag)
+        }
+      })
+    })
+    console.log(this.tagsList)
+  }
 };
 
 export default RecipeRepository;

@@ -17,7 +17,7 @@ class Recipe {
             return item;
           }
         })
-        return item.name;
+        return ` ${ingredient.quantity.amount}  ${ingredient.quantity.unit}  - ${item.name} `;
       })
       this.ingredientList = result;
     };
