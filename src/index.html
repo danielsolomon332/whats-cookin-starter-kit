@@ -64,7 +64,7 @@
   </section>
     </nav>
     <main>
-      <section class="center-container">
+      <section class="center-container" id="centerContainer">
         <h2 class="grid-title">Recommended for You</h2>
         <div class="cards-container" id="cardsContainer">
           <div class="recipe-card">
@@ -90,7 +90,19 @@
           </div>
         </div>
       </section>
-      <section class="recipe-view hidden">
+      <section class="recipe-view hidden" id="recipeView">
+        <h2 class="title" id="rvTitle"></h2>
+        <section class="ingredients-list-display">
+          <h3>Ingredients</h3>
+          <ul id="rvIngredients">      
+          </ul>
+        </section>
+        <section class="image-display">
+          <img src="" alt="" id="rvImg">
+        </section>
+        <section class="instructions-display">
+          <p id="rvInstructions"></p>
+        </section>
       </section>
     </main>
   </body>
