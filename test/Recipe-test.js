@@ -55,6 +55,11 @@ describe('Recipe', () => {
       expect(recipe.total).to.equal(17776);
     })
 
+    it('should be a number', () => {
+      recipe.calculateCost(ingredientsData);
+      expect(recipe.total).to.be.a('number');
+    })
+
     it('should return instructions', () => {
       expect(recipe.giveInstructions()).to.deep.equal(recipe.instructions);
     })

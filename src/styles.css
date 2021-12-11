@@ -136,3 +136,9 @@ main {
 .hidden {
   display: none;
 }
+
+.button-hover:hover {
+  cursor: pointer;
+  transform: scale(1.05);
+  transition: 10ms;
+}

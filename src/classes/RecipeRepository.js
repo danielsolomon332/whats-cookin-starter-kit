@@ -1,5 +1,6 @@
 import Recipe from "./RecipeClass.js";
 import Ingredient from "./IngredientClass.js";
+import ingredientsData from "../data/ingredients.js";
 
 
 class RecipeRepository {
@@ -11,6 +12,7 @@ class RecipeRepository {
     const result = recipeList.map(recipe => {
       let recipeCard = new Recipe(recipe)
       recipeCard.listIngredients(this.allIngredients)
+      recipeCard.calculateCost(ingredientsData);
       return recipeCard
     });
     this.recipes = result;

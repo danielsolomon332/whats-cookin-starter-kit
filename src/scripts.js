@@ -4,6 +4,7 @@ import RecipeRepository from "./classes/RecipeRepository.js";
 import ingredientsData from "./data/ingredients.js";
 import recipeData from "./data/recipes.js";
 
+const titlebutton = document.querySelector("#mainTitle");
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
 const recipeView = document.querySelector('#recipeView');
@@ -11,6 +12,7 @@ const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
 const rvImg = document.querySelector('#rvImg');
 const rvInstructions = document.querySelector('#rvInstructions');
+const rvCost = document.querySelector('#rvCost');
 
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 let clickedRecipe;
@@ -22,7 +24,7 @@ const makeAllCards = () => {
 
 const showAllRecipes = () => {
   cardsContainer.innerHTML = '';
-    cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
+  cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container">
@@ -33,11 +35,11 @@ const showAllRecipes = () => {
       </div>
       <h3 class="recipe-title">${recipe.name}</h3>
       </div>`
-    return acc
-}, '');
-};
-
-const displayIngredients = (clickedRecipe) => {
+      return acc
+    }, '');
+  };
+  
+  const displayIngredients = (clickedRecipe) => {
   return clickedRecipe.ingredientList.reduce((acc, ingredient) => {
     acc += `<li>${ingredient}</li>`
     return acc
@@ -49,12 +51,12 @@ const displayInstructions = (clickedRecipe) => {
     acc += `<li>${instruction.instruction}</li>`
     return acc
   }, '')
-}
-
+};
 
 const viewRecipe = () => {
+  // console.log(clickedRecipe.ingredients);
   assignContent(clickedRecipe);
- showHide([recipeView], [centerContainer]);
+  showHide([recipeView], [centerContainer]);
 }
 
 const findRecipe = (recipeId, cookBook) => {
@@ -71,8 +73,14 @@ const assignContent = (clickedRecipe) => {
   rvTitle.innerText = `${clickedRecipe.name}`;
   rvIngredients.innerHTML = displayIngredients(clickedRecipe);
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
+  console.log(clickedRecipe);
+  rvCost.innerText = clickedRecipe.total;
 };
 
+const switchHomeView = (toShow, toHide) => {
+ hide(toHide);
+ show(toShow);
+};
 
 const showHide = (toShow, toHide) => {
   hide(toHide);
@@ -94,4 +102,7 @@ const show = (toShow) => {
 window.addEventListener('load', makeAllCards)
 centerContainer.addEventListener('click', (event) => {
   findRecipe(event.target.id, cookBook);
-})
+});
+titlebutton.addEventListener('click', () => {
+  switchHomeView([centerContainer], [recipeView])
+});
