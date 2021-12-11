@@ -1,5 +1,5 @@
-import { expect } from 'chai';
-import User from "../src/classes/UserClass.js";
+// import { expect } from 'chai';
+// import User from "../src/classes/UserClass.js";
 
 
 // Create a class for User:

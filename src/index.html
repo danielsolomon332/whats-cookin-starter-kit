@@ -16,7 +16,7 @@
   </head>
   <body>
     <header>
-      <h1>What's Cookin Good Lookin</h1>
+      <h1 class = "button-hover"id="mainTitle">What's Cookin</h1>
       <div class="login-container">
         <button class="login-button">Log In/Signup</button>
       </div>
@@ -32,9 +32,8 @@
       <div class="icon-button">
         <button class="dropdown-buttons"><i class="fas fa-archive icon"></i></button>
         <div class="dropdown-content">
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Saved Meals</p>
+          <p class="dropdown-items">Meals to Cook</p>
         </div>
       </div>
       <div class="icon-button">
@@ -56,9 +55,9 @@
       <div class="icon-button">
         <button class="dropdown-buttons"><i class="fas fa-money-bill-wave icon"></i></button>
         <div class="dropdown-content">
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
+          <p class="dropdown-items">Meals on a Budget</p>
+          <p class="dropdown-items">Turing Grad Budget</p>
+          <p class="dropdown-items">Whoa, Bill Gates</p>
         </div>
       </div>
   </section>
@@ -92,16 +91,20 @@
       </section>
       <section class="recipe-view hidden" id="recipeView">
         <h2 class="title" id="rvTitle"></h2>
+        <div class="ingredients-and-image">
         <section class="ingredients-list-display">
           <h3>Ingredients</h3>
           <ul id="rvIngredients">      
           </ul>
+          <p id="rvCost"></p>
         </section>
         <section class="image-display">
-          <img src="" alt="" id="rvImg">
+          <img class="recipe-view-image" src="" alt="" id="rvImg">
         </section>
+        </div>
         <section class="instructions-display">
-          <p id="rvInstructions"></p>
+          <h3>Instructions</h3>
+          <p class="instructions"id="rvInstructions"></p>
         </section>
       </section>
     </main>
