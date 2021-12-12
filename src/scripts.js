@@ -4,7 +4,6 @@ import RecipeRepository from "./classes/RecipeRepository.js";
 import ingredientsData from "./data/ingredients.js";
 import recipeData from "./data/recipes.js";
 
-const titlebutton = document.querySelector("#mainTitle");
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
 const recipeView = document.querySelector('#recipeView');
@@ -12,19 +11,23 @@ const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
 const rvImg = document.querySelector('#rvImg');
 const rvInstructions = document.querySelector('#rvInstructions');
-const rvCost = document.querySelector('#rvCost');
+const tagDropdown = document.querySelector('#tagDropdown');
 
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 let clickedRecipe;
 
-const makeAllCards = () => {
+const loadPage = () => {
   cookBook.createRecipeCard(recipeData);
+  cookBook.addTags()
+  displayTags()
   showAllRecipes();
 }
 
+console.log(cookBook.tagsList)
+
 const showAllRecipes = () => {
   cardsContainer.innerHTML = '';
-  cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
+    cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container">
@@ -32,14 +35,25 @@ const showAllRecipes = () => {
       <button class="dropdown-buttons"><i class="far fa-star"></i></button>
       </div>
       <img class="recipe-image" src=${recipe.image} id="${recipe.id}">
-      <h3 class="recipe-title">${recipe.name}</h3>
       </div>
+      <h3 class="recipe-title">${recipe.name}</h3>
       </div>`
-      return acc
-    }, '');
-  };
-  
-  const displayIngredients = (clickedRecipe) => {
+    return acc
+}, '');
+};
+
+const generateTagButtons = (tagList) => {
+  return tagList.reduce((acc, tag) => {
+    acc += `<p class="dropdown-items">${tag}</p>`
+    return acc
+  }, '')
+}
+
+const displayTags = () => {
+  tagDropdown.innerHTML = generateTagButtons(cookBook.tagsList)
+}
+
+const displayIngredients = (clickedRecipe) => {
   return clickedRecipe.ingredientList.reduce((acc, ingredient) => {
     acc += `<li>${ingredient}</li>`
     return acc
@@ -51,12 +65,11 @@ const displayInstructions = (clickedRecipe) => {
     acc += `<li>${instruction.instruction}</li>`
     return acc
   }, '')
-};
+}
 
 const viewRecipe = () => {
-  // console.log(clickedRecipe.ingredients);
   assignContent(clickedRecipe);
-  showHide([recipeView], [centerContainer]);
+ showHide([recipeView], [centerContainer]);
 }
 
 const findRecipe = (recipeId, cookBook) => {
@@ -73,13 +86,6 @@ const assignContent = (clickedRecipe) => {
   rvTitle.innerText = `${clickedRecipe.name}`;
   rvIngredients.innerHTML = displayIngredients(clickedRecipe);
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
-  console.log(clickedRecipe);
-  rvCost.innerText = `Total Cost: $${clickedRecipe.total}`;
-};
-
-const switchHomeView = (toShow, toHide) => {
- hide(toHide);
- show(toShow);
 };
 
 const showHide = (toShow, toHide) => {
@@ -99,10 +105,7 @@ const show = (toShow) => {
   })
 }
 
-window.addEventListener('load', makeAllCards)
+window.addEventListener('load', loadPage)
 centerContainer.addEventListener('click', (event) => {
   findRecipe(event.target.id, cookBook);
-});
-titlebutton.addEventListener('click', () => {
-  switchHomeView([centerContainer], [recipeView])
-});
+})

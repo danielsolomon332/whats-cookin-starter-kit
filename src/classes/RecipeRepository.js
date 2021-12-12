@@ -55,7 +55,6 @@ class RecipeRepository {
         }
       })
     })
-    console.log(this.tagsList)
   }
 };
 
