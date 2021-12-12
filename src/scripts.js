@@ -12,6 +12,7 @@ const rvIngredients = document.querySelector('#rvIngredients');
 const rvImg = document.querySelector('#rvImg');
 const rvInstructions = document.querySelector('#rvInstructions');
 const tagDropdown = document.querySelector('#tagDropdown');
+const tags = document.querySelectorAll('.tags');
 
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 let clickedRecipe;
@@ -20,14 +21,14 @@ const loadPage = () => {
   cookBook.createRecipeCard(recipeData);
   cookBook.addTags()
   displayTags()
-  showAllRecipes();
+  showRecipes(cookBook.recipes);
 }
 
 console.log(cookBook.tagsList)
 
-const showAllRecipes = () => {
+const showRecipes = (listOfRecipes) => {
   cardsContainer.innerHTML = '';
-    cardsContainer.innerHTML = cookBook.recipes.reduce((acc, recipe) => {
+    cardsContainer.innerHTML = listOfRecipes.reduce((acc, recipe) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container">
@@ -44,7 +45,7 @@ const showAllRecipes = () => {
 
 const generateTagButtons = (tagList) => {
   return tagList.reduce((acc, tag) => {
-    acc += `<p class="dropdown-items">${tag}</p>`
+    acc += `<p class="dropdown-items tags">${tag}</p>`
     return acc
   }, '')
 }
@@ -106,6 +107,13 @@ const show = (toShow) => {
 }
 
 window.addEventListener('load', loadPage)
+tagDropdown.addEventListener('click', (event) => {
+  let tagName = event.target.innerText;
+  if (cookBook.tagsList.includes(tagName)){
+    showRecipes(cookBook.filterByTags([tagName]));
+  }
+  console.log(event.target.innerText);
+})
 centerContainer.addEventListener('click', (event) => {
   findRecipe(event.target.id, cookBook);
 })
