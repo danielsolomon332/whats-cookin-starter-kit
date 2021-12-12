@@ -6,6 +6,7 @@ import recipeData from "./data/recipes.js";
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
+// const recipeCard = document.querySelector('.recipe-card')
 const recipeView = document.querySelector('#recipeView');
 const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
@@ -33,11 +34,9 @@ const showRecipes = (listOfRecipes) => {
     cardsContainer.innerHTML = listOfRecipes.reduce((acc, recipe) => {
     acc +=
     `<div class="recipe-card">
-      <div class="image-container">
-      <div class="icon-button">
-      <button class="dropdown-buttons"><i class="far fa-star"></i></button>
-      </div>
-      <img class="recipe-image" src=${recipe.image} id="${recipe.id}">
+      <div class="image-container" id="${recipe.id}">
+      <button class="dropdown-buttons icon-button"><i class="far fa-star"></i></button>
+      <img class="recipe-image" src=${recipe.image}>
       </div>
       <h3 class="recipe-title">${recipe.name}</h3>
       </div>`
@@ -121,10 +120,14 @@ tagDropdown.addEventListener('click', (event) => {
   if (cookBook.tagsList.includes(tagName)){
     showRecipes(cookBook.filterByTags([tagName]));
   }
-  console.log(event.target.innerText);
 })
 searchBtn.addEventListener('click', showSearchResults)
 
 centerContainer.addEventListener('click', (event) => {
-  findRecipe(event.target.id, cookBook);
+  if(event.target.className === 'recipe-image') {
+  findRecipe(event.target.parentNode.id, cookBook)
+} else if (event.target.className === 'far fa-star') {
+  let targetId = event.target.parentNode.parentNode.id;
+
+}
 })
