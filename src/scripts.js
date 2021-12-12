@@ -13,6 +13,8 @@ const rvImg = document.querySelector('#rvImg');
 const rvInstructions = document.querySelector('#rvInstructions');
 const tagDropdown = document.querySelector('#tagDropdown');
 const tags = document.querySelectorAll('.tags');
+const searchBar = document.querySelector('#searchBar')
+const searchBtn = document.querySelector('#searchBtn')
 
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 let clickedRecipe;
@@ -89,6 +91,13 @@ const assignContent = (clickedRecipe) => {
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
 };
 
+const showSearchResults = () => {
+  console.log(searchBar.value)
+  const nameSearch = cookBook.filterByName(searchBar.value);
+  const ingredientSearch = cookBook.filterByIngredients([searchBar.value]);
+  showRecipes(nameSearch);
+}
+
 const showHide = (toShow, toHide) => {
   hide(toHide);
   show(toShow);
@@ -114,6 +123,8 @@ tagDropdown.addEventListener('click', (event) => {
   }
   console.log(event.target.innerText);
 })
+searchBtn.addEventListener('click', showSearchResults)
+
 centerContainer.addEventListener('click', (event) => {
   findRecipe(event.target.id, cookBook);
 })
