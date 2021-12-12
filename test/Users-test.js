@@ -36,22 +36,31 @@ describe("User", () => {
   });
 
   it('should be able to add favorite recipes', () => {
-    user.addFavorite(recipeData);
+    user.addFavorite(recipeData[0]);
     expect(user.favoriteRecipes).to.have.lengthOf(1);
   });
 
   it('should be able to add recipes to cook', () => {
-    user.addToCook(recipeData);
+    user.addToCook(recipeData[0]);
     expect(user.toCook).to.have.lengthOf(1);
   });
 
   it('should be able to remove favorite recipes', () => {
-    user.addFavorite(recipeData);
+    user.addFavorite(recipeData[0]);
     expect(user.favoriteRecipes).to.have.lengthOf(1);
-    user.removeFavorite(recipeData);
+    user.removeFavorite(recipeData[0]);
     expect(user.favoriteRecipes).to.deep.equal([]);
   })
-
+  it('should store tags', () => {
+    user.addFavorite(recipeData[0]);
+    expect(user.tagsList).to.deep.equal(recipeData[0].tags);
+  })
+  it('should remove tags', () => {
+    user.addFavorite(recipeData[0]);
+    expect(user.tagsList).to.deep.equal(recipeData[0].tags);
+    user.removeFavorite(recipeData[0]);
+    expect(user.tagsList).to.deep.equal([]);
+  })
 });
 
 // Allow a user to favorite or unfavorite recipes (add to / remove from the user’s favoriteRecipes)

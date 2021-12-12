@@ -8,7 +8,7 @@ import usersData from "./data/users.js"
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
-// const recipeCard = document.querySelector('.recipe-card')
+const mainTitle = document.querySelector("#mainTitle")
 const recipeView = document.querySelector('#recipeView');
 const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
@@ -24,11 +24,13 @@ const toCookMealsDropdown = document.querySelector('#toCookMeals')
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 const user = new User(usersData[0])
 let clickedRecipe;
+let currentCollection;
 
 const loadPage = () => {
+  currentCollection = cookBook
   cookBook.createRecipeCard(recipeData);
   cookBook.addTags()
-  displayTags()
+  displayTags(cookBook.tagsList)
   showRecipes(cookBook.recipes);
 }
 
@@ -40,8 +42,8 @@ const showRecipes = (listOfRecipes) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container" id="${recipe.id}">
-      <button class="dropdown-buttons icon-button"><i class="far fa-star"></i></button>
-      <button class="dropdown-buttons to-cook">TO COOK</button>
+      <button class="dropdown-buttons icon-button"><i class="${isFavorited(recipe)}"></i></button>
+      <button class="to-cook">TO COOK</button>
       <img class="recipe-image" src=${recipe.image}>
       </div>
       <h3 class="recipe-title">${recipe.name}</h3>
@@ -50,6 +52,14 @@ const showRecipes = (listOfRecipes) => {
 }, '');
 };
 
+const isFavorited = (recipe) => {
+  if(user.favoriteRecipes.includes(recipe)){
+    return "fas fa-star"
+  } else {
+    return "far fa-star"
+  }
+}
+
 const generateTagButtons = (tagList) => {
   return tagList.reduce((acc, tag) => {
     acc += `<p class="dropdown-items tags">${tag}</p>`
@@ -57,8 +67,8 @@ const generateTagButtons = (tagList) => {
   }, '')
 }
 
-const displayTags = () => {
-  tagDropdown.innerHTML = generateTagButtons(cookBook.tagsList)
+const displayTags = (tagslist) => {
+  tagDropdown.innerHTML = generateTagButtons(tagslist)
 }
 
 const displayIngredients = (clickedRecipe) => {
@@ -127,7 +137,22 @@ const showSearchResults = () => {
 }
 
 const showFavoriteMeals = () => {
+  currentCollection = user;
   showRecipes(user.favoriteRecipes)
+  displayTags(user.tagsList)
+}
+
+const filterByTags = (collection, tagName) => {
+if (collection.tagsList.includes(tagName)){
+  showRecipes(collection.filterByTags([tagName]));
+  }
+}
+
+const returnHome = () => {
+  currentCollection = cookBook;
+  showHide([cardsContainer], [recipeView])
+  displayTags(cookBook.tagsList)
+  showRecipes(cookBook.recipes)
 }
 
 const showHide = (toShow, toHide) => {
@@ -150,28 +175,26 @@ const show = (toShow) => {
 window.addEventListener('load', loadPage)
 tagDropdown.addEventListener('click', (event) => {
   let tagName = event.target.innerText;
-  if (cookBook.tagsList.includes(tagName)){
-    showRecipes(cookBook.filterByTags([tagName]));
-  }
+  filterByTags(currentCollection, tagName);
 })
 searchBtn.addEventListener('click', showSearchResults)
 favMealsDropdown.addEventListener('click', showFavoriteMeals)
-
+mainTitle.addEventListener('click', returnHome)
 centerContainer.addEventListener('click', (event) => {
   if(event.target.className === 'recipe-image') {
   findRecipe(event.target.parentNode.id, cookBook)
 } else if (event.target.className === 'far fa-star') {
   let targetId = event.target.parentNode.parentNode.id;
   favoriteStore(targetId, cookBook)
-} else if (event.target.className === "dropdown-buttons to-cook") {
+  showRecipes(cookBook.recipes)
+} else if (event.target.className === "to-cook") {
   let targetId = event.target.parentNode.id;
   toCookStore(targetId, cookBook)
   console.log(user.toCook)
-
+} else if (event.target.className === 'fas fa-star'){
+  let targetId = event.target.parentNode.parentNode.id;
+  favoriteRemove(targetId, cookBook)
+  showRecipes(cookBook.recipes)
+  console.log(user.favoriteRecipes)
 }
-// else if (event.target.className === 'far fa-star'){
-//   let targetId = event.target.parentNode.parentNode.id;
-//   favoriteRemove(targetId, cookBook)
-//   console.log(user.favoriteRecipes)
-// }
 })
