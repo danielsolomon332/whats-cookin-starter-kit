@@ -22,7 +22,7 @@ class RecipeRepository {
 
   filterByName(name) {
     const result = this.recipes.filter(recipe => {
-      if (recipe.name.includes(name)) {
+      if (recipe.name.toUpperCase().includes(name.toUpperCase())) {
         return recipe
       };
     });
@@ -33,7 +33,9 @@ class RecipeRepository {
     const result = this.recipes.filter(recipe => {
       const containsName = ingredients.every(ingredientName => {
         return recipe.ingredientList.filter(ingredient => {
-          ingredient.name === ingredientName;
+          // console.log(ingredient.name)
+          // console.log(ingredient)
+          ingredient.toUpperCase().includes(ingredientName.toUpperCase());
         })
       })
       if (containsName) {
