@@ -33,7 +33,9 @@ describe('Recipe', () => {
   });
   it('should be able to filter by a tag', () => {
     cookbook.createRecipeCard(recipeData);
+    // console.log(cookbook.recipes[0])
     expect(cookbook.filterByTags(['antipasti'])).to.be.an('array');
+    expect(cookbook.filterByTags(['antipasti']).length).to.equal(1);
   });
   it('should be able to filter by multiple tags', () => {
     cookbook.createRecipeCard(recipeData);

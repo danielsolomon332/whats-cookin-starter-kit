@@ -19,6 +19,7 @@ class RecipeRepository {
     });
     this.recipes = result;
   };
+
   filterByName(name) {
     const result = this.recipes.filter(recipe => {
       if (recipe.name.includes(name)) {
@@ -27,26 +28,31 @@ class RecipeRepository {
     });
     return result;
   };
+
   filterByIngredients(ingredients) {
     const result = this.recipes.filter(recipe => {
-      ingredients.every(ingredient => {
-        if (recipe.ingredientList.includes(ingredient)) {
+      const containsName = ingredients.every(ingredientName => {
+        return recipe.ingredientList.filter(ingredient => {
+          ingredient.name === ingredientName;
+        })
+      })
+      if (containsName) {
           return recipe
-        };
-      });
-    });
-    return result
-  };
+        }
+      })
+      return result
+    };
+
+
   filterByTags(tags) {
     const result = this.recipes.filter(recipe => {
-      tags.every(tag => {
-      if (recipe.tags.includes(tag)) {
-        return recipe
-      };
-    });
+    if (tags.every(tag => {return recipe.tags.includes(tag)})) {
+      return recipe
+    }
   });
     return result
   };
+
   addTags() {
     const result = this.recipes.forEach((recipe) => {
       recipe.tags.forEach((tag) => {
@@ -55,7 +61,6 @@ class RecipeRepository {
         }
       })
     })
-    console.log(this.tagsList)
   }
 };
 
