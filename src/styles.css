@@ -20,7 +20,6 @@ header {
   display: inline-flex;
   width: 100%;
   background-color: white;
-  /* box-shadow: 0px -1.5px 7px #26222d; */
   box-shadow: 1px 1px 6px -3px #26222d;
 }
 
@@ -88,7 +87,7 @@ display: inline-block;
 }
 
 .to-cook {
-  height: 5vh;
+  height: 3vh;
   width: 10vw;
   border-radius: 4px;
   border: 0;
@@ -123,6 +122,10 @@ display: inline-block;
 
 }
 
+.fa-star {
+  font-size: large
+}
+
 .search-button {
   background-color: transparent;
   border: none;
@@ -155,8 +158,9 @@ display: inline-block;
 }
 
 .recipe-card {
-  width: 16vw;
-  height: 20vh;
+  width: 17vw;
+  height: 27vh;
+  box-shadow: 1px 1px 6px -3px #26222d;
   margin-bottom: 15vh;
 }
 
@@ -165,6 +169,7 @@ display: inline-block;
   transform:scale(1.05);
   transition: 3ms;
 }
+
 
 .recipe-image {
   border-radius: 8px;

@@ -2,9 +2,6 @@ import './styles.css';
 import apiCalls from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js"
-import ingredientsData from "./data/ingredients.js";
-import recipeData from "./data/recipes.js";
-import usersData from "./data/users.js"
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
@@ -12,7 +9,7 @@ const mainTitle = document.querySelector("#mainTitle")
 const recipeView = document.querySelector('#recipeView');
 const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
-const rvImg = document.querySelector('#rvImg');
+const recipeViewImg = document.querySelector('#recipeViewImg');
 const rvInstructions = document.querySelector('#rvInstructions');
 const tagDropdown = document.querySelector('#tagDropdown');
 const tags = document.querySelectorAll('.tags');
@@ -21,6 +18,12 @@ const searchBtn = document.querySelector('#searchBtn')
 const favMealsDropdown = document.querySelector('#favMeals')
 const toCookMealsDropdown = document.querySelector('#toCookMeals')
 
+apiCalls.fetchUser()
+apiCalls.fetchRecipes()
+apiCalls.fetchIngredients()
+
+const recipeData = JSON.parse(localStorage.getItem("recipes"))
+const ingredientsData = JSON.parse(localStorage.getItem("ingredients"))
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
 let user;
 let clickedRecipe;
@@ -28,7 +31,7 @@ let currentCollection;
 
 const loadPage = () => {
   currentCollection = cookBook;
-  user = new User(usersData[getRandomIndex(usersData)])
+  user = new User(JSON.parse(localStorage.getItem("user")))
   console.log(user)
   cookBook.createRecipeCard(recipeData);
   cookBook.addTags()
@@ -36,18 +39,15 @@ const loadPage = () => {
   showRecipes(cookBook.recipes);
 }
 
-const getRandomIndex = (array) =>  {
-  return Math.floor(Math.random() * array.length);
-}
-
 const showRecipes = (listOfRecipes) => {
+    showHide([centerContainer], [recipeView])
   cardsContainer.innerHTML = '';
     cardsContainer.innerHTML = listOfRecipes.reduce((acc, recipe) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container" id="${recipe.id}">
-      <button class="dropdown-buttons icon-button"><i class="${isFavorited(recipe)}"></i></button>
       <button class="to-cook">TO COOK</button>
+      <button class="dropdown-buttons icon-button"><i class="${isFavorited(recipe)}"></i></button>
       <img class="recipe-image" src=${recipe.image}>
       </div>
       <h3 class="recipe-title">${recipe.name}</h3>
@@ -128,7 +128,7 @@ const favoriteRemove = (recipeId, cookBook) => {
 }
 
 const assignContent = (clickedRecipe) => {
-  rvImg.src = `${clickedRecipe.image}`;
+  recipeViewImg.src = `${clickedRecipe.image}`;
   rvTitle.innerText = `${clickedRecipe.name}`;
   rvIngredients.innerHTML = displayIngredients(clickedRecipe);
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
@@ -159,7 +159,6 @@ if (collection.tagsList.includes(tagName)){
 
 const returnHome = () => {
   currentCollection = cookBook;
-  showHide([cardsContainer], [recipeView])
   displayTags(cookBook.tagsList)
   showRecipes(cookBook.recipes)
 }
@@ -186,6 +185,7 @@ tagDropdown.addEventListener('click', (event) => {
   let tagName = event.target.innerText;
   filterByTags(currentCollection, tagName);
 })
+
 searchBtn.addEventListener('click', showSearchResults)
 favMealsDropdown.addEventListener('click', showFavoriteMeals)
 toCookMealsDropdown.addEventListener('click', showToCookMeals)
