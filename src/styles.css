@@ -198,6 +198,8 @@ display: inline-block;
   font-size: 250%;
   font-weight: bolder;
   text-align: center;
+  border-bottom: 2px solid tomato;
+  margin-bottom: 0;
 }
 
 .ingredients-and-image {
@@ -207,6 +209,31 @@ justify-content: space-evenly;
 align-content: center;
 }
 
+.ingredients-list-display {
+  border-right: 2px solid tomato;
+  padding-right: 30px;
+}
+
 .instructions-display {
+  padding: 10px;
   height: 25%;
+  border: 2px solid tomato;
+}
+
+.image-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.recipe-view-image {
+  border-radius: 8px;
+  box-shadow: 1px 1px 6px -3px #26222d;
+}
+
+.to-cook:hover {
+  cursor: pointer;
+  background-color: rgb(6, 45, 123);
+  transform: scale(1.05);
+  transition: 3ms;
 }

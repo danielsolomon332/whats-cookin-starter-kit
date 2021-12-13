@@ -9,6 +9,7 @@ const mainTitle = document.querySelector("#mainTitle")
 const recipeView = document.querySelector('#recipeView');
 const rvTitle = document.querySelector('#rvTitle');
 const rvIngredients = document.querySelector('#rvIngredients');
+const rvCost = document.querySelector('#rvCost');
 const recipeViewImg = document.querySelector('#recipeViewImg');
 const rvInstructions = document.querySelector('#rvInstructions');
 const tagDropdown = document.querySelector('#tagDropdown');
@@ -113,7 +114,8 @@ const favoriteStore = (recipeId, cookBook) => {
 
 const toCookStore = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId) {
+    if(recipe.id == recipeId && user.toCook.includes(recipe.id)) {
+      console.log(user.toCook);
       user.addToCook(recipe)
     }
   })
@@ -132,6 +134,7 @@ const assignContent = (clickedRecipe) => {
   rvTitle.innerText = `${clickedRecipe.name}`;
   rvIngredients.innerHTML = displayIngredients(clickedRecipe);
   rvInstructions.innerHTML = displayInstructions(clickedRecipe);
+  rvCost.innerText = `Total Cost: $${clickedRecipe.total.toFixed(2)}`;
 };
 
 const showSearchResults = () => {
