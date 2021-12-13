@@ -32,11 +32,10 @@ class RecipeRepository {
   filterByIngredients(ingredients) {
     const result = this.recipes.filter(recipe => {
       const containsName = ingredients.every(ingredientName => {
-        return recipe.ingredientList.filter(ingredient => {
-          // console.log(ingredient.name)
-          // console.log(ingredient)
-          ingredient.toUpperCase().includes(ingredientName.toUpperCase());
+        let matchingIngredients = recipe.ingredientList.filter(ingredient => {
+          return ingredient.toUpperCase().includes(ingredientName.toUpperCase());
         })
+        return matchingIngredients.length > 0
       })
       if (containsName) {
           return recipe
