@@ -22,19 +22,23 @@ const favMealsDropdown = document.querySelector('#favMeals')
 const toCookMealsDropdown = document.querySelector('#toCookMeals')
 
 const cookBook = new RecipeRepository(recipeData, ingredientsData);
-const user = new User(usersData[0])
+let user;
 let clickedRecipe;
 let currentCollection;
 
 const loadPage = () => {
-  currentCollection = cookBook
+  currentCollection = cookBook;
+  user = new User(usersData[getRandomIndex(usersData)])
+  console.log(user)
   cookBook.createRecipeCard(recipeData);
   cookBook.addTags()
   displayTags(cookBook.tagsList)
   showRecipes(cookBook.recipes);
 }
 
-console.log(cookBook.tagsList)
+const getRandomIndex = (array) =>  {
+  return Math.floor(Math.random() * array.length);
+}
 
 const showRecipes = (listOfRecipes) => {
   cardsContainer.innerHTML = '';
@@ -131,15 +135,20 @@ const assignContent = (clickedRecipe) => {
 };
 
 const showSearchResults = () => {
-  const nameSearch = cookBook.filterByName(searchBar.value);
-  const ingredientSearch = cookBook.filterByIngredients([searchBar.value]);
-  showRecipes(nameSearch);
+  const nameSearch = currentCollection.filterByName(searchBar.value);
+  const ingredientSearch = currentCollection.filterByIngredients([searchBar.value]);
+  showRecipes([...nameSearch, ...ingredientSearch]);
 }
 
 const showFavoriteMeals = () => {
   currentCollection = user;
   showRecipes(user.favoriteRecipes)
   displayTags(user.tagsList)
+}
+
+const showToCookMeals = () => {
+  currentCollection = user;
+  showRecipes(user.toCook)
 }
 
 const filterByTags = (collection, tagName) => {
@@ -179,6 +188,7 @@ tagDropdown.addEventListener('click', (event) => {
 })
 searchBtn.addEventListener('click', showSearchResults)
 favMealsDropdown.addEventListener('click', showFavoriteMeals)
+toCookMealsDropdown.addEventListener('click', showToCookMeals)
 mainTitle.addEventListener('click', returnHome)
 centerContainer.addEventListener('click', (event) => {
   if(event.target.className === 'recipe-image') {

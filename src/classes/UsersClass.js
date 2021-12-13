@@ -40,6 +40,30 @@ class User {
     this.toCook.push(recipe);
   }
 
+  filterByName(name) {
+    const result = this.favoriteRecipes.filter(recipe => {
+      if (recipe.name.toUpperCase().includes(name.toUpperCase())) {
+        return recipe
+      };
+    });
+    return result;
+  };
+
+  filterByIngredients(ingredients) {
+    const result = this.favoriteRecipes.filter(recipe => {
+      const containsName = ingredients.every(ingredientName => {
+        let matchingIngredients = recipe.ingredientList.filter(ingredient => {
+          return ingredient.toUpperCase().includes(ingredientName.toUpperCase());
+        })
+        return matchingIngredients.length > 0
+      })
+      if (containsName) {
+          return recipe
+        }
+      })
+      return result
+    };
+
 }
 
 
