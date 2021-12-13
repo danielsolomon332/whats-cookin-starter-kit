@@ -15,11 +15,11 @@ class Recipe {
         var item = ingredients.find(item => {
           if(item.id === ingredient.id) {
             return item;
-          }
-        })
-        return ` ${ingredient.quantity.amount}  ${ingredient.quantity.unit}  - ${item.name} `;
-      })
-      this.ingredientList = result;
+          };
+        });
+            return ` ${ingredient.quantity.amount}  ${ingredient.quantity.unit}  - ${item.name} `;
+      });
+            this.ingredientList = result;
     };
 
     calculateCost(ingredients) {
@@ -27,18 +27,18 @@ class Recipe {
         var item = ingredients.find(item => {
           if(item.id === ingredient.id) {
             return item;
-          }
-        })
-        sum += item.estimatedCostInCents * ingredient.quantity.amount;
-        return sum;
+          };  
+        });
+            sum += item.estimatedCostInCents * ingredient.quantity.amount;
+            return sum;
       }, 0);
-      this.total = result;
+            this.total = result;
     };
 
     giveInstructions() {
       return this.instructions;
-    }
+    };
   };
 
 export default Recipe;
-// module.exports = Recipe;
+

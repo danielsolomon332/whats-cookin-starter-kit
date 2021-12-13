@@ -14,21 +14,27 @@ describe('Recipe', () => {
     it('should be a function', () => {
         expect(recipe).to.be.an.instanceOf(Recipe);
     });
+
     it('should have an id', () => {
         expect(recipe.id).to.equal(595736);
     });
+
     it('should have an image', () => {
         expect(recipe.image).to.equal("https://spoonacular.com/recipeImages/595736-556x370.jpg");
     });
+
     it('should have ingredients', () => {
         expect(recipe.ingredients).to.be.an("array");
     });
+
     it('should have instructions', () => {
         expect(recipe.instructions).to.be.an("array");
     });
+
     it('should have a name', () => {
         expect(recipe.name).to.equal("Loaded Chocolate Chip Pudding Cookie Cups");
     });
+
     it('should have tags', () => {
         expect(recipe.tags).to.deep.equal([
             "antipasti",
@@ -48,19 +54,19 @@ describe('Recipe', () => {
 
     it("should store a cost", () => {
       expect(recipe.total).to.equal(0);
-    })
+    });
 
     it('should estimate total cost', () => {
       recipe.calculateCost(ingredientsData);
       expect(recipe.total).to.equal(17776);
-    })
+    });
 
     it('should be a number', () => {
       recipe.calculateCost(ingredientsData);
       expect(recipe.total).to.be.a('number');
-    })
+    });
 
     it('should return instructions', () => {
       expect(recipe.giveInstructions()).to.deep.equal(recipe.instructions);
-    })
+    });
 });

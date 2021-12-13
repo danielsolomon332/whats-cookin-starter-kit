@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html>
   <head>
@@ -8,7 +7,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="https://kit.fontawesome.com/06c158b401.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Palanquin:wght@200;300;400&display=swap" rel="stylesheet">
@@ -16,7 +15,7 @@
   </head>
   <body>
     <header>
-      <h1 class = "button-hover"id="mainTitle">What's Cookin</h1>
+      <h1 class="button-hover" id="mainTitle">What's Cookin</h1>
       <div class="user-container">
       </div>
     </header>
@@ -60,18 +59,18 @@
     </nav>
     <main>
       <section class="center-container" id="centerContainer">
-        <h2 class="grid-title">Recommended for You</h2>
+        <h2 class="grid-title"id="gridTitle">Recommended for You</h2>
         <div class="cards-container" id="cardsContainer">
         </div>
       </section>
       <section class="recipe-view hidden" id="recipeView">
-        <h2 class="title" id="rvTitle"></h2>
+        <h2 class="title" id="recipeViewTitle"></h2>
         <div class="ingredients-and-image">
         <section class="ingredients-list-display">
-          <h3>Ingredients</h3>
-          <ul id="rvIngredients">
+          <p id="recipeViewCost"></p>
+          <h3 class="ingredients-title">Ingredients</h3>
+          <ul id="recipeViewIngredients">
           </ul>
-          <p id="rvCost"></p>
         </section>
         <section class="image-display">
           <img class="recipe-view-image" src="" alt="" id="recipeViewImg">
@@ -79,7 +78,7 @@
         </div>
         <section class="instructions-display">
           <h3>Instructions</h3>
-          <p class="instructions"id="rvInstructions"></p>
+          <p class="instructions"id="recipeViewInstructions"></p>
         </section>
       </section>
     </main>
