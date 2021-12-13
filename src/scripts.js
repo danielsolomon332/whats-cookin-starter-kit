@@ -46,8 +46,8 @@ const showRecipes = (listOfRecipes) => {
     acc +=
     `<div class="recipe-card">
       <div class="image-container" id="${recipe.id}">
-      <button class="dropdown-buttons icon-button"><i class="${isFavorited(recipe)}"></i></button>
       <button class="to-cook">TO COOK</button>
+      <button class="dropdown-buttons icon-button"><i class="${isFavorited(recipe)}"></i></button>
       <img class="recipe-image" src=${recipe.image}>
       </div>
       <h3 class="recipe-title">${recipe.name}</h3>
@@ -185,6 +185,7 @@ tagDropdown.addEventListener('click', (event) => {
   let tagName = event.target.innerText;
   filterByTags(currentCollection, tagName);
 })
+
 searchBtn.addEventListener('click', showSearchResults)
 favMealsDropdown.addEventListener('click', showFavoriteMeals)
 toCookMealsDropdown.addEventListener('click', showToCookMeals)
