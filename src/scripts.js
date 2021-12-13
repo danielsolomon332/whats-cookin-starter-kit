@@ -18,6 +18,7 @@ const searchBar = document.querySelector('#searchBar')
 const searchBtn = document.querySelector('#searchBtn')
 const favMealsDropdown = document.querySelector('#favMeals')
 const toCookMealsDropdown = document.querySelector('#toCookMeals')
+const gridTitle = document.querySelector('#gridTitle');
 
 apiCalls.fetchUser()
 apiCalls.fetchRecipes()
@@ -33,7 +34,6 @@ let currentCollection;
 const loadPage = () => {
   currentCollection = cookBook;
   user = new User(JSON.parse(localStorage.getItem("user")))
-  console.log(user)
   cookBook.createRecipeCard(recipeData);
   cookBook.addTags()
   displayTags(cookBook.tagsList)
@@ -114,8 +114,7 @@ const favoriteStore = (recipeId, cookBook) => {
 
 const toCookStore = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId && user.toCook.includes(recipe.id)) {
-      console.log(user.toCook);
+    if(recipe.id == recipeId) {
       user.addToCook(recipe)
     }
   })
@@ -144,13 +143,15 @@ const showSearchResults = () => {
 }
 
 const showFavoriteMeals = () => {
-  currentCollection = user;
+  currentCollection = user
+  gridTitle.innerText = 'Favorite Meals';
   showRecipes(user.favoriteRecipes)
   displayTags(user.tagsList)
 }
 
 const showToCookMeals = () => {
   currentCollection = user;
+  gridTitle.innerText = 'Meals to Cook';
   showRecipes(user.toCook)
 }
 

@@ -11,7 +11,7 @@ class User {
   addFavorite(recipe) {
     this.favoriteRecipes.push(recipe);
     recipe.tags.forEach(tag => {
-      if(!this.tagsList.includes(tag)){
+      if(!this.tagsList.includes(tag)) {
         this.tagsList.push(tag);
       }
     })
@@ -37,7 +37,9 @@ class User {
   };
 
   addToCook(recipe) {
+    if (!this.toCook.includes(recipe)) {
     this.toCook.push(recipe);
+    }
   }
 
   filterByName(name) {

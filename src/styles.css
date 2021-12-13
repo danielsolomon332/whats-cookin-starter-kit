@@ -8,6 +8,7 @@ body {
   height: 100%;
   width: 100%;
   margin: 0;
+  overflow: auto;
 }
 
 button {
@@ -24,6 +25,7 @@ header {
 }
 
 h1 {
+  font-size: 5vh;
   display: flex;
   justify-content: center;
   width: 100%;
@@ -34,12 +36,13 @@ nav {
   display: flex;
   justify-content: space-between;
   padding: 3vh 5vw;
+  height: 20%;
 }
 
 main {
   padding: 1% 4%;
   background-color: white;
-  height: 65vh;
+  height: 80%;
 }
 
 h3 {
@@ -118,10 +121,6 @@ display: inline-block;
   box-shadow: none;
 }
 
-.fa-search {
-
-}
-
 .fa-star {
   font-size: large
 }
@@ -181,7 +180,7 @@ display: inline-block;
 .recipe-title {
  margin-top: 0;
  text-align: center;
- font-size: 15px
+ font-size: 1.5vh;
 }
 
 .hidden {
@@ -195,11 +194,17 @@ display: inline-block;
 }
 
 .title {
-  font-size: 250%;
+  font-size: 5vh;
   font-weight: bolder;
   text-align: center;
   border-bottom: 2px solid tomato;
   margin-bottom: 0;
+}
+
+.grid-title {
+  font-size: 3vh;
+  font-weight: bolder;
+  border-bottom: 2px solid tomato;
 }
 
 .ingredients-and-image {
@@ -236,4 +241,10 @@ align-content: center;
   background-color: rgb(6, 45, 123);
   transform: scale(1.05);
   transition: 3ms;
+}
+
+.search-bar {
+  font-size: 2vh;
+  font-weight: bold;
+  outline: none;
 }
