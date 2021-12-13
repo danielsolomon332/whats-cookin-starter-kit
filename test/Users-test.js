@@ -8,7 +8,7 @@ describe("User", () => {
   let user = undefined;
 
   beforeEach(() => {
-    user = new User(usersData[0])
+    user = new User(usersData[0]);
   });
 
   it('Should be a function', () => {
@@ -50,20 +50,17 @@ describe("User", () => {
     expect(user.favoriteRecipes).to.have.lengthOf(1);
     user.removeFavorite(recipeData[0]);
     expect(user.favoriteRecipes).to.deep.equal([]);
-  })
+  });
+
   it('should store tags', () => {
     user.addFavorite(recipeData[0]);
     expect(user.tagsList).to.deep.equal(recipeData[0].tags);
-  })
+  });
+
   it('should remove tags', () => {
     user.addFavorite(recipeData[0]);
     expect(user.tagsList).to.deep.equal(recipeData[0].tags);
     user.removeFavorite(recipeData[0]);
     expect(user.tagsList).to.deep.equal([]);
-  })
+  });
 });
-
-// Allow a user to favorite or unfavorite recipes (add to / remove from the user’s favoriteRecipes)
-// Decide to cook a recipe that week (add to my recipesToCook)
-// Filter my favoriteRecipes by one or more tags.
-// Filter my favoriteRecipes by its name or ingredients.
