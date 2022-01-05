@@ -108,6 +108,8 @@ const favoriteStore = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
     if(recipe.id == recipeId) {
       user.addFavorite(recipe);
+      console.log(recipe.id)
+      console.log(recipeId)
     };
   });
 };
