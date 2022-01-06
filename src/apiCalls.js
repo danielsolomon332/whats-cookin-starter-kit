@@ -1,31 +1,11 @@
-
-const fetchUser = () => {
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/users')
+const fetchData = (api) =>
+  fetch(`http://localhost:3001/api/v1/${api}`)
     .then(response => response.json())
-    .then(data => {
-      let selectedUser = data.usersData[getRandomIndex(data.usersData)]
-      localStorage.setItem("user", JSON.stringify(selectedUser))
-  });
-};
 
-const getRandomIndex = (array) =>  {
-  return Math.floor(Math.random() * array.length);
-};
+const usersData = fetchData('users')
 
-const fetchRecipes = () => {
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/recipes')
-    .then(response => response.json())
-    .then(data => {
-      localStorage.setItem("recipes", JSON.stringify(data.recipeData))
-    });
-};
+const recipesData = fetchData('recipes')
 
-const fetchIngredients = () => {
-  fetch('https://what-s-cookin-starter-kit.herokuapp.com/api/v1/ingredients')
-    .then(response => response.json())
-    .then(data => {
-      localStorage.setItem("ingredients", JSON.stringify(data.ingredientsData))
-    });
-};
+const ingredientsData = fetchData('ingredients')
 
-export default {fetchUser, fetchRecipes, fetchIngredients};
+export {usersData, recipesData, ingredientsData};
