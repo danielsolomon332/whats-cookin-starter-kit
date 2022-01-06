@@ -1,5 +1,5 @@
 import './styles.css';
-import apiCalls from './apiCalls';
+import {usersData, recipesData, ingredientsData} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 
@@ -20,25 +20,28 @@ const favMealsDropdown = document.querySelector('#favMeals');
 const toCookMealsDropdown = document.querySelector('#toCookMeals');
 const gridTitle = document.querySelector('#gridTitle');
 
-apiCalls.fetchUser();
-apiCalls.fetchRecipes();
-apiCalls.fetchIngredients();
-
-const recipeData = JSON.parse(localStorage.getItem("recipes"));
-const ingredientsData = JSON.parse(localStorage.getItem("ingredients"));
-const cookBook = new RecipeRepository(recipeData, ingredientsData);
+let cookBook;
 let user;
 let clickedRecipe;
 let currentCollection;
 
+const getRandomIndex = (array) =>  {
+  return Math.floor(Math.random() * array.length);
+};
+
 const loadPage = () => {
-  currentCollection = cookBook;
-  user = new User(JSON.parse(localStorage.getItem("user")));
-  cookBook.createRecipeCard(recipeData);
-  cookBook.addTags();
-  displayTags(cookBook.tagsList);
-  showRecipes(cookBook.recipes);
-}
+  Promise.all([usersData, recipesData, ingredientsData])
+    .then(data => {
+      user = new User(data[0][getRandomIndex(data[0])]);
+      cookBook = new RecipeRepository(data[1], data[2]);
+      cookBook.createRecipeCard(data[1]);
+      cookBook.addTags();
+      displayTags(cookBook.tagsList);
+      showRecipes(cookBook.recipes);
+      currentCollection = cookBook;
+    });
+};
+
 
 const showRecipes = (listOfRecipes) => {
     showHide([centerContainer], [recipeView]);
@@ -97,7 +100,7 @@ const viewRecipe = () => {
 
 const findRecipe = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId) {
+    if(`${recipe.id}` === recipeId) {
       clickedRecipe = recipe;
     };
   });
@@ -106,17 +109,15 @@ const findRecipe = (recipeId, cookBook) => {
 
 const favoriteStore = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId) {
+    if(`${recipe.id}` === recipeId) {
       user.addFavorite(recipe);
-      console.log(recipe.id)
-      console.log(recipeId)
     };
   });
 };
 
 const toCookStore = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId) {
+    if(`${recipe.id}` === recipeId) {
       user.addToCook(recipe);
     };
   });
@@ -124,7 +125,7 @@ const toCookStore = (recipeId, cookBook) => {
 
 const favoriteRemove = (recipeId, cookBook) => {
   const recipeSelection = cookBook.recipes.find(recipe => {
-    if(recipe.id == recipeId) {
+    if(`${recipe.id}` === recipeId) {
       user.removeFavorite(recipe);
     };
   });
