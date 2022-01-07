@@ -26,19 +26,27 @@ describe('Pantry', () => {
     })
 
     it('should check if they have required recipe ingredients', () => {
-      let selectedRecipe = recipeData[0]
-      expect(pantry.checkIngredients(selectedRecipe)).to.equal("Ready to Cook!");
+      let selectedRecipe = recipeData[2]
+      pantry.checkIngredients(selectedRecipe)
+      expect(pantry.needsIngredients).to.equal(false);
     })
 
     it('should tell a user if they still need ingredients', () => {
       let selectedRecipe = recipeData[1]
-      expect(pantry.checkIngredients(selectedRecipe)).to.equal("You still need ***LIST SHOULD BE HERE***");
+      pantry.checkIngredients(selectedRecipe)
+      expect(pantry.needsIngredients).to.equal(true);
     })
 
     it('should make a list of the needed ingredients', () => {
       let selectedRecipe = recipeData[1]
       pantry.checkIngredients(selectedRecipe)
-      expect(pantry.missingIngredients).to.equal(["place holder item1", "place holder item2"]);
+      expect(pantry.missingIngredients).to.deep.equal([
+      {
+      "amount": 2,
+      "amountToBuy": 2,
+      "ingredient": 1102047
+      }
+      ]);
     })
 
     it('should remove ingredients once used', () => {
@@ -50,7 +58,7 @@ describe('Pantry', () => {
     it('should be able to add more of an ingredient', () => {
       let selectedRecipe = recipeData[0]
       pantry.addIngredients(20081, 5)
-      expect(pantry.usersIngredients[2].amount).to.equal(10)
+      expect(pantry.usersIngredients[2].amount).to.equal(8.5)
     })
 
     it('should be able to add a new ingredient', () => {
