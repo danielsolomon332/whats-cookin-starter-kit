@@ -38,7 +38,7 @@ describe('Pantry', () => {
     it('should make a list of the needed ingredients', () => {
       let selectedRecipe = recipeData[1]
       pantry.checkIngredients(selectedRecipe)
-      expect(pantry.missingIngredients).to.equal(["item1", "item2"]);
+      expect(pantry.missingIngredients).to.equal(["place holder item1", "place holder item2"]);
     })
 
     it('should remove ingredients once used', () => {

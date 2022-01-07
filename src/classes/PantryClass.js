@@ -14,6 +14,11 @@ class Pantry {
 //   return result
 // }
 
+// addIngredients(recipe) {
+//   const result =
+//   return result
+// }
+
 }
 
 export default Pantry;
