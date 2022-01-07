@@ -2,6 +2,7 @@ import './styles.css';
 import {usersData, recipesData, ingredientsData} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
+import Pantry from "./classes/PantryClass.js";
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
@@ -19,6 +20,7 @@ const searchBtn = document.querySelector('#searchBtn');
 const favMealsDropdown = document.querySelector('#favMeals');
 const toCookMealsDropdown = document.querySelector('#toCookMeals');
 const gridTitle = document.querySelector('#gridTitle');
+const letsCookButton = document.querySelector('#letsCookButton')
 
 let cookBook;
 let user;
@@ -139,6 +141,10 @@ const assignContent = (clickedRecipe) => {
   recipeViewCost.innerText = `Total Cost: $${clickedRecipe.total.toFixed(2)}`;
 };
 
+const cookRecipe = (recipeIngredients) => {
+
+};
+
 const showSearchResults = () => {
   const nameSearch = currentCollection.filterByName(searchBar.value);
   const ingredientSearch = currentCollection.filterByIngredients([searchBar.value]);
@@ -193,6 +199,7 @@ tagDropdown.addEventListener('click', (event) => {
   filterByTags(currentCollection, tagName);
 });
 
+letsCookButton.addeventListener('click', cookRecipe);
 searchBtn.addEventListener('click', showSearchResults);
 favMealsDropdown.addEventListener('click', showFavoriteMeals);
 toCookMealsDropdown.addEventListener('click', showToCookMeals);
