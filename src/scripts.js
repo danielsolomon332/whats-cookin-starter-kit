@@ -26,6 +26,13 @@ const modalContent = document.querySelector('#modalContent');
 const modalHeader = document.querySelector('#modalHeader');
 const modalList = document.querySelector('#needsIngredients')
 const closeButton = document.querySelector('#close');
+const pantryView = document.querySelector('#pantryView');
+const pantryList = document.querySelector('#pantryList');
+const ingredientForm = document.querySelector('#addIngredients');
+const ingredientName = document.querySelector('#ingredientName');
+const ingredientAmount = document.querySelector('#ingredientAmount')
+const ingredientId = document.querySelector('#ingredientId');
+
 
 let cookBook;
 let user;
@@ -227,14 +234,13 @@ tagDropdown.addEventListener('click', (event) => {
   let tagName = event.target.innerText;
   filterByTags(currentCollection, tagName);
 });
-
-letsCookButton.addEventListener('click', cookRecipe);
-closeButton.addEventListener('click', closeModal)
 window.addEventListener('click', (event) => {
   if (event.target == modal) {
     closeModal();
   };
 });
+letsCookButton.addEventListener('click', cookRecipe);
+closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);
 favMealsDropdown.addEventListener('click', showFavoriteMeals);
 toCookMealsDropdown.addEventListener('click', showToCookMeals);
