@@ -20,7 +20,10 @@ const searchBtn = document.querySelector('#searchBtn');
 const favMealsDropdown = document.querySelector('#favMeals');
 const toCookMealsDropdown = document.querySelector('#toCookMeals');
 const gridTitle = document.querySelector('#gridTitle');
-const letsCookButton = document.querySelector('#letsCookButton')
+const letsCookButton = document.querySelector('#letsCookButton');
+const modal = document.querySelector('#modal');
+const modalContent = document.querySelector('#modalContent');
+const closeButton = document.querySelector('#close');
 
 let cookBook;
 let user;
@@ -97,7 +100,7 @@ const displayInstructions = (clickedRecipe) => {
 
 const viewRecipe = () => {
   assignContent(clickedRecipe);
- showHide([recipeView], [centerContainer]);
+  showHide([recipeView], [centerContainer]);
 };
 
 const findRecipe = (recipeId, cookBook) => {
@@ -141,8 +144,12 @@ const assignContent = (clickedRecipe) => {
   recipeViewCost.innerText = `Total Cost: $${clickedRecipe.total.toFixed(2)}`;
 };
 
-const cookRecipe = (recipeIngredients) => {
+const cookRecipe = () => {
+  show([modal])
+};
 
+const closeModal = () => {
+  hide([modal])
 };
 
 const showSearchResults = () => {
@@ -199,7 +206,13 @@ tagDropdown.addEventListener('click', (event) => {
   filterByTags(currentCollection, tagName);
 });
 
-letsCookButton.addeventListener('click', cookRecipe);
+letsCookButton.addEventListener('click', cookRecipe);
+closeButton.addEventListener('click', closeModal)
+window.addEventListener('click', (event) => {
+  if (event.target == modal) {
+    closeModal();
+  };
+});
 searchBtn.addEventListener('click', showSearchResults);
 favMealsDropdown.addEventListener('click', showFavoriteMeals);
 toCookMealsDropdown.addEventListener('click', showToCookMeals);
