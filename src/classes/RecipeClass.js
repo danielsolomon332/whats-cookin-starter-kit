@@ -12,7 +12,7 @@ class Recipe {
 
     listIngredients(ingredients) {
       const result = this.ingredients.map(ingredient => {
-        var item = ingredients.find(item => {
+        let item = ingredients.find(item => {
           if(item.id === ingredient.id) {
             return item;
           };
@@ -24,10 +24,10 @@ class Recipe {
 
     calculateCost(ingredients) {
       const result = this.ingredients.reduce((sum, ingredient) => {
-        var item = ingredients.find(item => {
+        let item = ingredients.find(item => {
           if(item.id === ingredient.id) {
             return item;
-          };  
+          };
         });
             sum += item.estimatedCostInCents * ingredient.quantity.amount;
             return sum;
@@ -41,4 +41,3 @@ class Recipe {
   };
 
 export default Recipe;
-

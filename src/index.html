@@ -64,6 +64,14 @@
       </section>
       <section class="recipe-view hidden" id="recipeView">
         <h2 class="title" id="recipeViewTitle"></h2>
+        <section class="modal hidden" id="modal">
+          <section class="modal-content" id="modalContent">
+            <span class="close" id="close"><i class="fas fa-times"></i></span>
+            <h3 class="modal-header" id="modalHeader">You are Ready to Cook!<h3>
+            <section class="needed-ingredients" id="needsIngredients">
+            </section>
+          </section>
+        </section>
         <div class="ingredients-and-image">
         <section class="ingredients-list-display">
           <p id="recipeViewCost"></p>
@@ -73,6 +81,7 @@
         </section>
         <section class="image-display">
           <img class="recipe-view-image" src="" alt="" id="recipeViewImg">
+          <button class="lets-cook-button" id="letsCookButton">Start to Cook Recipe</button>
         </section>
         </div>
         <section class="instructions-display">

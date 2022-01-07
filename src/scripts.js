@@ -2,6 +2,7 @@ import './styles.css';
 import {usersData, recipesData, ingredientsData} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
+import Pantry from "./classes/PantryClass.js";
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
@@ -19,11 +20,19 @@ const searchBtn = document.querySelector('#searchBtn');
 const favMealsDropdown = document.querySelector('#favMeals');
 const toCookMealsDropdown = document.querySelector('#toCookMeals');
 const gridTitle = document.querySelector('#gridTitle');
+const letsCookButton = document.querySelector('#letsCookButton');
+const modal = document.querySelector('#modal');
+const modalContent = document.querySelector('#modalContent');
+const modalHeader = document.querySelector('#modalHeader');
+const modalList = document.querySelector('#needsIngredients')
+const closeButton = document.querySelector('#close');
 
 let cookBook;
 let user;
 let clickedRecipe;
 let currentCollection;
+let currentPantry;
+let ingredients;
 
 const getRandomIndex = (array) =>  {
   return Math.floor(Math.random() * array.length);
@@ -33,6 +42,8 @@ const loadPage = () => {
   Promise.all([usersData, recipesData, ingredientsData])
     .then(data => {
       user = new User(data[0][getRandomIndex(data[0])]);
+      currentPantry = new Pantry(user.pantry);
+      ingredients = data[2];
       cookBook = new RecipeRepository(data[1], data[2]);
       cookBook.createRecipeCard(data[1]);
       cookBook.addTags();
@@ -86,6 +97,13 @@ const displayIngredients = (clickedRecipe) => {
   }, '');
 };
 
+const displayPantryIngredients = (pantry) => {
+  return pantry.ingredientNames.reduce((acc, ingredient) => {
+    acc += `<li class="needed-ingredient-list">${ingredient}</li>`;
+    return acc;
+  }, '');
+};
+
 const displayInstructions = (clickedRecipe) => {
   return clickedRecipe.instructions.reduce((acc, instruction) => {
     acc += `<li>${instruction.instruction}</li>`;
@@ -95,7 +113,7 @@ const displayInstructions = (clickedRecipe) => {
 
 const viewRecipe = () => {
   assignContent(clickedRecipe);
- showHide([recipeView], [centerContainer]);
+  showHide([recipeView], [centerContainer]);
 };
 
 const findRecipe = (recipeId, cookBook) => {
@@ -137,6 +155,23 @@ const assignContent = (clickedRecipe) => {
   recipeViewIngredients.innerHTML = displayIngredients(clickedRecipe);
   recipeViewInstructions.innerHTML = displayInstructions(clickedRecipe);
   recipeViewCost.innerText = `Total Cost: $${clickedRecipe.total.toFixed(2)}`;
+};
+
+const cookRecipe = () => {
+  currentPantry.checkIngredients(clickedRecipe);
+  console.log(currentPantry.needsIngredients)
+  if (currentPantry.needsIngredients === true) {
+    currentPantry.listIngredients(ingredients);
+    modalHeader.innerText = "You Need the Following Ingredients:"
+    modalList.innerHTML = displayPantryIngredients(currentPantry)
+  } else if (currentPantry.needsIngredients === false) {
+    currentPantry.useIngredients(clickedRecipe);
+  }
+  show([modal]);
+};
+
+const closeModal = () => {
+  hide([modal]);
 };
 
 const showSearchResults = () => {
@@ -193,6 +228,13 @@ tagDropdown.addEventListener('click', (event) => {
   filterByTags(currentCollection, tagName);
 });
 
+letsCookButton.addEventListener('click', cookRecipe);
+closeButton.addEventListener('click', closeModal)
+window.addEventListener('click', (event) => {
+  if (event.target == modal) {
+    closeModal();
+  };
+});
 searchBtn.addEventListener('click', showSearchResults);
 favMealsDropdown.addEventListener('click', showFavoriteMeals);
 toCookMealsDropdown.addEventListener('click', showToCookMeals);
