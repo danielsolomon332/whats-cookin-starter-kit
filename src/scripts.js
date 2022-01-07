@@ -23,12 +23,16 @@ const gridTitle = document.querySelector('#gridTitle');
 const letsCookButton = document.querySelector('#letsCookButton');
 const modal = document.querySelector('#modal');
 const modalContent = document.querySelector('#modalContent');
+const modalHeader = document.querySelector('#modalHeader');
+const modalList = document.querySelector('#needsIngredients')
 const closeButton = document.querySelector('#close');
 
 let cookBook;
 let user;
 let clickedRecipe;
 let currentCollection;
+let currentPantry;
+let ingredients;
 
 const getRandomIndex = (array) =>  {
   return Math.floor(Math.random() * array.length);
@@ -38,6 +42,8 @@ const loadPage = () => {
   Promise.all([usersData, recipesData, ingredientsData])
     .then(data => {
       user = new User(data[0][getRandomIndex(data[0])]);
+      currentPantry = new Pantry(user.pantry);
+      ingredients = data[2];
       cookBook = new RecipeRepository(data[1], data[2]);
       cookBook.createRecipeCard(data[1]);
       cookBook.addTags();
@@ -87,6 +93,13 @@ const displayTags = (tagslist) => {
 const displayIngredients = (clickedRecipe) => {
   return clickedRecipe.ingredientList.reduce((acc, ingredient) => {
     acc += `<li>${ingredient}</li>`;
+    return acc;
+  }, '');
+};
+
+const displayPantryIngredients = (pantry) => {
+  return pantry.ingredientNames.reduce((acc, ingredient) => {
+    acc += `<li class="needed-ingredient-list">${ingredient}</li>`;
     return acc;
   }, '');
 };
@@ -145,11 +158,20 @@ const assignContent = (clickedRecipe) => {
 };
 
 const cookRecipe = () => {
-  show([modal])
+  currentPantry.checkIngredients(clickedRecipe);
+  console.log(currentPantry.needsIngredients)
+  if (currentPantry.needsIngredients === true) {
+    currentPantry.listIngredients(ingredients);
+    modalHeader.innerText = "You Need the Following Ingredients:"
+    modalList.innerHTML = displayPantryIngredients(currentPantry)
+  } else if (currentPantry.needsIngredients === false) {
+    currentPantry.useIngredients(clickedRecipe);
+  }
+  show([modal]);
 };
 
 const closeModal = () => {
-  hide([modal])
+  hide([modal]);
 };
 
 const showSearchResults = () => {

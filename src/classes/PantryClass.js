@@ -3,6 +3,7 @@ class Pantry {
     this.usersIngredients = ingredients;
     this.missingIngredients = [];
     this.needsIngredients = false;
+    this.ingredientNames = [];
 };
 
 checkIngredients(recipe) {
@@ -51,6 +52,20 @@ addIngredients(id, amount) {
     });
   };
   return result;
+};
+
+listIngredients(ingredients) {
+  const result = this.missingIngredients.map(ingredient => {
+    let item = ingredients.find(item => {
+      console.log(item)
+      console.log(ingredient)
+      if(item.id === ingredient.ingredient) {
+        return item;
+      };
+    });
+        return ` ${ingredient.amountToBuy} - ${item.name} `;
+  });
+        this.ingredientNames = result
 };
 };
 
