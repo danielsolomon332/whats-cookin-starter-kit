@@ -1,5 +1,5 @@
 import './styles.css';
-import {usersData, recipesData, ingredientsData} from './apiCalls';
+import {usersData, recipesData, ingredientsData, postIngredient} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 import Pantry from "./classes/PantryClass.js";
@@ -26,6 +26,14 @@ const modalContent = document.querySelector('#modalContent');
 const modalHeader = document.querySelector('#modalHeader');
 const modalList = document.querySelector('#needsIngredients')
 const closeButton = document.querySelector('#close');
+const pantryViewButton = document.querySelector('#pantryViewButton');
+const pantryView = document.querySelector('#pantryView');
+const pantryList = document.querySelector('#pantryList');
+const ingredientForm = document.querySelector('#addIngredients');
+const ingredientName = document.querySelector('#ingredientName');
+const ingredientAmount = document.querySelector('#ingredientAmount');
+const ingredientId = document.querySelector('#ingredientId');
+const formButton = document.querySelector('#formButton');
 
 let cookBook;
 let user;
@@ -44,11 +52,13 @@ const loadPage = () => {
       user = new User(data[0][getRandomIndex(data[0])]);
       currentPantry = new Pantry(user.pantry);
       ingredients = data[2];
+      currentPantry.giveIngredientNames(ingredients);
       cookBook = new RecipeRepository(data[1], data[2]);
       cookBook.createRecipeCard(data[1]);
       cookBook.addTags();
       displayTags(cookBook.tagsList);
       showRecipes(cookBook.recipes);
+      setPantryData();
       currentCollection = cookBook;
     });
 };
@@ -97,6 +107,14 @@ const displayIngredients = (clickedRecipe) => {
   }, '');
 };
 
+const displayPantry = (pantry) => {
+  return pantry.usersIngredients.reduce((acc, ingredient) => {
+    acc += `<li>${ingredient.name}  (${ingredient.ingredient})  :  ${ingredient.amount}</li>`;
+    return acc;
+  }, '');
+};
+
+
 const displayPantryIngredients = (pantry) => {
   return pantry.ingredientNames.reduce((acc, ingredient) => {
     acc += `<li class="needed-ingredient-list">${ingredient}</li>`;
@@ -110,6 +128,10 @@ const displayInstructions = (clickedRecipe) => {
   return acc;
   }, '');
 };
+
+const setPantryData = () => {
+    pantryList.innerHTML = displayPantry(currentPantry);
+}
 
 const viewRecipe = () => {
   assignContent(clickedRecipe);
@@ -159,13 +181,18 @@ const assignContent = (clickedRecipe) => {
 
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
-  console.log(currentPantry.needsIngredients)
   if (currentPantry.needsIngredients === true) {
     currentPantry.listIngredients(ingredients);
     modalHeader.innerText = "You Need the Following Ingredients:"
     modalList.innerHTML = displayPantryIngredients(currentPantry)
   } else if (currentPantry.needsIngredients === false) {
-    currentPantry.useIngredients(clickedRecipe);
+    let ingredientModifications = currentPantry.useIngredients(clickedRecipe);
+    ingredientModifications.forEach(modification => {
+      modification.userID = user.id;
+      postIngredient(modification)
+      .then(data => console.log(data))
+    })
+    setPantryData();
   }
   show([modal]);
 };
@@ -193,11 +220,24 @@ const showToCookMeals = () => {
   showRecipes(user.toCook);
 };
 
+const viewPantry = () => {
+  showHide([pantryView], [recipeView, centerContainer])
+}
+
 const filterByTags = (collection, tagName) => {
 if (collection.tagsList.includes(tagName)){
   showRecipes(collection.filterByTags([tagName]));
   };
 };
+
+const submitIngredient = () => {
+  let data = { userID: user.id, ingredientID: ingredientId.value, ingredientModification: ingredientAmount.value};
+  postIngredient(data)
+  .then(data => {
+    currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
+    setPantryData();
+  })
+}
 
 const returnHome = () => {
   currentCollection = cookBook;
@@ -227,14 +267,18 @@ tagDropdown.addEventListener('click', (event) => {
   let tagName = event.target.innerText;
   filterByTags(currentCollection, tagName);
 });
-
-letsCookButton.addEventListener('click', cookRecipe);
-closeButton.addEventListener('click', closeModal)
 window.addEventListener('click', (event) => {
   if (event.target == modal) {
     closeModal();
   };
 });
+formButton.addEventListener('click', (event) => {
+  event.preventDefault()
+  submitIngredient()
+});
+pantryViewButton.addEventListener('click', viewPantry);
+letsCookButton.addEventListener('click', cookRecipe);
+closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);
 favMealsDropdown.addEventListener('click', showFavoriteMeals);
 toCookMealsDropdown.addEventListener('click', showToCookMeals);

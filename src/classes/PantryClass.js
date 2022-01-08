@@ -1,14 +1,14 @@
 class Pantry {
  constructor(ingredients) {
-    this.usersIngredients = ingredients;
-    this.missingIngredients = [];
-    this.needsIngredients = false;
+    this.usersIngredients = ingredients
+    this.missingIngredients = []
+    this.needsIngredients = false
     this.ingredientNames = [];
-};
+}
 
 checkIngredients(recipe) {
-  this.missingIngredients = [];
-  this.needsIngredients = false;
+  this.missingIngredients = []
+  this.needsIngredients = false
   const result = recipe.ingredients.forEach(ingredient => {
     const requiredIngredient = this.usersIngredients.find(item => {
       if(item.ingredient === ingredient.id) {
@@ -16,49 +16,49 @@ checkIngredients(recipe) {
           this.needsIngredients = true;
           item.amountToBuy = ingredient.quantity.amount - item.amount;
           this.missingIngredients.push(item);
-        };
-      };
-    });
+        }
+      }
+    })
   });
-  return result;
-};
+  return result
+}
 
 useIngredients(recipe) {
   if(!this.needsIngredients){
-    const result = recipe.ingredients.forEach(ingredient => {
+    const result = recipe.ingredients.map(ingredient => {
       const requiredIngredient = this.usersIngredients.find(item => {
         if(item.ingredient === ingredient.id) {
           if(ingredient.quantity.amount < item.amount) {
             item.amount = item.amount - ingredient.quantity.amount;
-          };
-        };
-      });
+          }
+        }
+      })
+      return {ingredientID: ingredient.id, ingredientModification: -ingredient.quantity.amount}
     });
-    return result;
-  };
-};
+    return result
+  }
+}
 
-addIngredients(id, amount) {
+addIngredients(id, amount, name) {
   const result = this.usersIngredients.find(item => {
     if(item.ingredient === id){
       item.amount += amount;
-      return item;
-    };
-  });
+      return item
+    }
+  })
   if(result === undefined){
     this.usersIngredients.push({
       "ingredient": id,
-      "amount": amount
-    });
-  };
-  return result;
-};
+      "amount": amount,
+      "name": name
+    })
+  }
+  return result
+  }
 
-listIngredients(ingredients) {
+  listIngredients(ingredients) {
   const result = this.missingIngredients.map(ingredient => {
     let item = ingredients.find(item => {
-      console.log(item)
-      console.log(ingredient)
       if(item.id === ingredient.ingredient) {
         return item;
       };
@@ -67,6 +67,19 @@ listIngredients(ingredients) {
   });
         this.ingredientNames = result
 };
+
+giveIngredientNames(ingredients) {
+const result = this.usersIngredients.map(ingredient => {
+  let item = ingredients.find(item => {
+    if(item.id === ingredient.ingredient) {
+        ingredient.name = item.name;
+      return item;
+    };
+  });
+  return ingredient;
+});
+  this.usersIngredients = result
 };
+}
 
 export default Pantry;

@@ -27,18 +27,11 @@
     </section>
     <section class="dropdown-section">
       <div class="icon-button">
-        <button class="dropdown-buttons"><i class="fas fa-archive icon"></i></button>
-        <div class="dropdown-content">
-          <p class="dropdown-items" id="favMeals">Favorited Meals</p>
-          <p class="dropdown-items" id="toCookMeals">Meals to Cook</p>
-        </div>
-      </div>
-      <div class="icon-button">
         <button class="dropdown-buttons"><i class="fas fa-utensils icon"></i></button>
         <div class="dropdown-content">
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
-          <p class="dropdown-items">Placeholder</p>
+          <button type="button" name="button" class="dropdown-items" id="favMeals">Favorited Meals</button>
+          <button type="button" name="button" class="dropdown-items" id="toCookMeals">Meals to Cook</button>
+          <button type="button" name="button" class="dropdown-items" id="pantryViewButton">Your Pantry</button>
         </div>
       </div>
       <div class="icon-button">
@@ -49,9 +42,9 @@
       <div class="icon-button">
         <button class="dropdown-buttons"><i class="fas fa-money-bill-wave icon"></i></button>
         <div class="dropdown-content">
-          <p class="dropdown-items">Meals on a Budget</p>
-          <p class="dropdown-items">Turing Grad Budget</p>
-          <p class="dropdown-items">Whoa, Bill Gates</p>
+          <button type="button" name="button" class="dropdown-items">Meals on a Budget</button>
+          <button type="button" name="button" class="dropdown-items">Turing Grad Budget</button>
+          <button type="button" name="button" class="dropdown-items">Whoa, Bill Gates</button>
         </div>
       </div>
   </section>
@@ -74,10 +67,10 @@
         </section>
         <div class="ingredients-and-image">
         <section class="ingredients-list-display">
-          <p id="recipeViewCost"></p>
           <h3 class="ingredients-title">Ingredients</h3>
           <ul id="recipeViewIngredients">
           </ul>
+          <p id="recipeViewCost"></p>
         </section>
         <section class="image-display">
           <img class="recipe-view-image" src="" alt="" id="recipeViewImg">
@@ -88,6 +81,20 @@
           <h3>Instructions</h3>
           <p class="instructions"id="recipeViewInstructions"></p>
         </section>
+      </section>
+      <section class="pantry-view hidden" id="pantryView">
+        <h2>Your Pantry contains :</h2>
+        <section class="pantry-list" id="pantryList"></section>
+        <h2>Add items to Your Pantry</h2>
+        <form class="add-ingredient-form" id="addIngredientForm">
+          <label for="ingredientName">Ingredient Name:</label><br>
+          <input type="text" id="ingredientName" name="ingredientName"><br>
+          <label for="ingredientId">Ingredient ID:</label><br>
+          <input type="text" id="ingredientId" name="ingredientId"><br>
+          <label for="ingredientAmount">Amount to Add:</label><br>
+          <input type="text" id="ingredientAmount" name="ingredientAmount"><br>
+          <button class="form-button" id="formButton">Add Ingredient</button>
+        </form>
       </section>
     </main>
   </body>

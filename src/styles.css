@@ -173,7 +173,7 @@ h3 {
 
 
 .recipe-image {
-  border-radius: 8px;
+  border-radius: 3px;
   width: 17vw;
   height: 27vh;
   object-fit: cover;
@@ -217,14 +217,13 @@ h3 {
 }
 
 .ingredients-list-display {
-  border-right: 2px solid tomato;
   padding-right: 30px;
 }
 
 .instructions-display {
   padding: 10px;
   height: 25%;
-  border: 2px solid tomato;
+  border-top: 2px solid tomato;
 }
 
 .image-display {
@@ -234,7 +233,7 @@ h3 {
 }
 
 .recipe-view-image {
-  border-radius: 8px;
+  border-radius: 3px;
   box-shadow: 1px 1px 6px -3px #26222d;
 }
 
@@ -275,7 +274,7 @@ h3 {
 
 .to-cook:hover {
   cursor: pointer;
-  background-color: rgb(6, 45, 123);
+  background-color: rgb(72, 148, 148);
   transform: scale(1.05);
   transition: 3ms;
 }

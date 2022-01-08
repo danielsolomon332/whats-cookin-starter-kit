@@ -8,4 +8,17 @@ const recipesData = fetchData('recipes')
 
 const ingredientsData = fetchData('ingredients')
 
-export {usersData, recipesData, ingredientsData};
+const postIngredient = (data) => {
+
+return fetch(`http://localhost:3001/api/v1/users`, {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+})
+  .then(response => response.json())
+
+}
+
+export {usersData, recipesData, ingredientsData, postIngredient};
