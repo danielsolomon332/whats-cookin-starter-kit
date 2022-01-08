@@ -26,6 +26,7 @@ const modalContent = document.querySelector('#modalContent');
 const modalHeader = document.querySelector('#modalHeader');
 const modalList = document.querySelector('#needsIngredients')
 const closeButton = document.querySelector('#close');
+const pantryViewButton = document.querySelector('#pantryViewButton')
 const pantryView = document.querySelector('#pantryView');
 const pantryList = document.querySelector('#pantryList');
 const ingredientForm = document.querySelector('#addIngredients');
@@ -51,11 +52,13 @@ const loadPage = () => {
       user = new User(data[0][getRandomIndex(data[0])]);
       currentPantry = new Pantry(user.pantry);
       ingredients = data[2];
+      currentPantry.giveIngredientNames(ingredients);
       cookBook = new RecipeRepository(data[1], data[2]);
       cookBook.createRecipeCard(data[1]);
       cookBook.addTags();
       displayTags(cookBook.tagsList);
       showRecipes(cookBook.recipes);
+      setPantryData();
       currentCollection = cookBook;
     });
 };
@@ -104,6 +107,14 @@ const displayIngredients = (clickedRecipe) => {
   }, '');
 };
 
+const displayPantry = (pantry) => {
+  return pantry.usersIngredients.reduce((acc, ingredient) => {
+    acc += `<li>${ingredient.name}</li>`;
+    return acc;
+  }, '');
+};
+
+
 const displayPantryIngredients = (pantry) => {
   return pantry.ingredientNames.reduce((acc, ingredient) => {
     acc += `<li class="needed-ingredient-list">${ingredient}</li>`;
@@ -117,6 +128,10 @@ const displayInstructions = (clickedRecipe) => {
   return acc;
   }, '');
 };
+
+const setPantryData = () => {
+    pantryList.innerHTML = displayPantry(currentPantry);
+}
 
 const viewRecipe = () => {
   assignContent(clickedRecipe);
@@ -200,6 +215,10 @@ const showToCookMeals = () => {
   showRecipes(user.toCook);
 };
 
+const viewPantry = () => {
+  showHide([pantryView], [recipeView, centerContainer])
+}
+
 const filterByTags = (collection, tagName) => {
 if (collection.tagsList.includes(tagName)){
   showRecipes(collection.filterByTags([tagName]));
@@ -239,6 +258,7 @@ window.addEventListener('click', (event) => {
     closeModal();
   };
 });
+pantryViewButton.addEventListener('click', viewPantry)
 letsCookButton.addEventListener('click', cookRecipe);
 closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);
