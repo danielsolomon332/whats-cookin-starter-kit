@@ -38,7 +38,7 @@ useIngredients(recipe) {
   }
 }
 
-addIngredients(id, amount) {
+addIngredients(id, amount, name) {
   const result = this.usersIngredients.find(item => {
     if(item.ingredient === id){
       item.amount += amount;
@@ -48,7 +48,8 @@ addIngredients(id, amount) {
   if(result === undefined){
     this.usersIngredients.push({
       "ingredient": id,
-      "amount": amount
+      "amount": amount,
+      "name": name
     })
   }
   return result

@@ -26,14 +26,14 @@ const modalContent = document.querySelector('#modalContent');
 const modalHeader = document.querySelector('#modalHeader');
 const modalList = document.querySelector('#needsIngredients')
 const closeButton = document.querySelector('#close');
-const pantryViewButton = document.querySelector('#pantryViewButton')
+const pantryViewButton = document.querySelector('#pantryViewButton');
 const pantryView = document.querySelector('#pantryView');
 const pantryList = document.querySelector('#pantryList');
 const ingredientForm = document.querySelector('#addIngredients');
 const ingredientName = document.querySelector('#ingredientName');
-const ingredientAmount = document.querySelector('#ingredientAmount')
+const ingredientAmount = document.querySelector('#ingredientAmount');
 const ingredientId = document.querySelector('#ingredientId');
-
+const formButton = document.querySelector('#formButton');
 
 let cookBook;
 let user;
@@ -225,6 +225,11 @@ if (collection.tagsList.includes(tagName)){
   };
 };
 
+const submitIngredient = () => {
+  currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
+  setPantryData();
+}
+
 const returnHome = () => {
   currentCollection = cookBook;
   displayTags(cookBook.tagsList);
@@ -258,7 +263,11 @@ window.addEventListener('click', (event) => {
     closeModal();
   };
 });
-pantryViewButton.addEventListener('click', viewPantry)
+formButton.addEventListener('click', (event) => {
+  event.preventDefault()
+  submitIngredient()
+});
+pantryViewButton.addEventListener('click', viewPantry);
 letsCookButton.addEventListener('click', cookRecipe);
 closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);
