@@ -25,7 +25,7 @@ checkIngredients(recipe) {
 
 useIngredients(recipe) {
   if(!this.needsIngredients){
-    const result = recipe.ingredients.forEach(ingredient => {
+    const result = recipe.ingredients.map(ingredient => {
       const requiredIngredient = this.usersIngredients.find(item => {
         if(item.ingredient === ingredient.id) {
           if(ingredient.quantity.amount < item.amount) {
@@ -33,6 +33,7 @@ useIngredients(recipe) {
           }
         }
       })
+      return {ingredientID: ingredient.id, ingredientModification: -ingredient.quantity.amount}
     });
     return result
   }

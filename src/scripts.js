@@ -1,5 +1,5 @@
 import './styles.css';
-import {usersData, recipesData, ingredientsData} from './apiCalls';
+import {usersData, recipesData, ingredientsData, postIngredient} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 import Pantry from "./classes/PantryClass.js";
@@ -109,7 +109,7 @@ const displayIngredients = (clickedRecipe) => {
 
 const displayPantry = (pantry) => {
   return pantry.usersIngredients.reduce((acc, ingredient) => {
-    acc += `<li>${ingredient.name}</li>`;
+    acc += `<li>${ingredient.name}  (${ingredient.ingredient})  :  ${ingredient.amount}</li>`;
     return acc;
   }, '');
 };
@@ -181,13 +181,18 @@ const assignContent = (clickedRecipe) => {
 
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
-  console.log(currentPantry.needsIngredients)
   if (currentPantry.needsIngredients === true) {
     currentPantry.listIngredients(ingredients);
     modalHeader.innerText = "You Need the Following Ingredients:"
     modalList.innerHTML = displayPantryIngredients(currentPantry)
   } else if (currentPantry.needsIngredients === false) {
-    currentPantry.useIngredients(clickedRecipe);
+    let ingredientModifications = currentPantry.useIngredients(clickedRecipe);
+    ingredientModifications.forEach(modification => {
+      modification.userID = user.id;
+      postIngredient(modification)
+      .then(data => console.log(data))
+    })
+    setPantryData();
   }
   show([modal]);
 };
@@ -226,8 +231,12 @@ if (collection.tagsList.includes(tagName)){
 };
 
 const submitIngredient = () => {
-  currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
-  setPantryData();
+  let data = { userID: user.id, ingredientID: ingredientId.value, ingredientModification: ingredientAmount.value};
+  postIngredient(data)
+  .then(data => {
+    currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
+    setPantryData();
+  })
 }
 
 const returnHome = () => {
