@@ -3,6 +3,7 @@ import {usersData, recipesData, ingredientsData, postIngredient} from './apiCall
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 import Pantry from "./classes/PantryClass.js";
+import {domUpdates, hide, show, showHide, displayInstructions, displayIngredients, displayTags, isFavorited, displayPantry, displayPantryIngredients} from "./domUpdates.js";
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
@@ -57,76 +58,10 @@ const loadPage = () => {
       cookBook.createRecipeCard(data[1]);
       cookBook.addTags();
       displayTags(cookBook.tagsList);
-      showRecipes(cookBook.recipes);
+      domUpdates.showRecipes(cookBook.recipes, user);
       setPantryData();
       currentCollection = cookBook;
     });
-};
-
-
-const showRecipes = (listOfRecipes) => {
-    showHide([centerContainer], [recipeView]);
-    cardsContainer.innerHTML = '';
-    cardsContainer.innerHTML = listOfRecipes.reduce((acc, recipe) => {
-    acc +=
-    `<div class="recipe-card">
-      <div class="image-container" id="${recipe.id}">
-      <button class="to-cook">TO COOK</button>
-      <button class="dropdown-buttons icon-button star-button"><i class="${isFavorited(recipe)}"></i></button>
-      <img class="recipe-image" src=${recipe.image}>
-      </div>
-      <h3 class="recipe-title">${recipe.name}</h3>
-      </div>`
-    return acc;
-  }, '');
-};
-
-const isFavorited = (recipe) => {
-  if(user.favoriteRecipes.includes(recipe)){
-    return "fas fa-star";
-  } else {
-    return "far fa-star";
-  }
-}
-
-const generateTagButtons = (tagList) => {
-  return tagList.reduce((acc, tag) => {
-    acc += `<p class="dropdown-items tags">${tag}</p>`;
-    return acc;
-  }, '');
-};
-
-const displayTags = (tagslist) => {
-  tagDropdown.innerHTML = generateTagButtons(tagslist);
-}
-
-const displayIngredients = (clickedRecipe) => {
-  return clickedRecipe.ingredientList.reduce((acc, ingredient) => {
-    acc += `<li>${ingredient}</li>`;
-    return acc;
-  }, '');
-};
-
-const displayPantry = (pantry) => {
-  return pantry.usersIngredients.reduce((acc, ingredient) => {
-    acc += `<li>${ingredient.name}  (${ingredient.ingredient})  :  ${ingredient.amount}</li>`;
-    return acc;
-  }, '');
-};
-
-
-const displayPantryIngredients = (pantry) => {
-  return pantry.ingredientNames.reduce((acc, ingredient) => {
-    acc += `<li class="needed-ingredient-list">${ingredient}</li>`;
-    return acc;
-  }, '');
-};
-
-const displayInstructions = (clickedRecipe) => {
-  return clickedRecipe.instructions.reduce((acc, instruction) => {
-    acc += `<li>${instruction.instruction}</li>`;
-  return acc;
-  }, '');
 };
 
 const setPantryData = () => {
@@ -134,8 +69,8 @@ const setPantryData = () => {
 }
 
 const viewRecipe = () => {
-  assignContent(clickedRecipe);
-  showHide([recipeView], [centerContainer]);
+  domUpdates.assignContent(clickedRecipe);
+  showHide([recipeView], [centerContainer, pantryView]);
 };
 
 const findRecipe = (recipeId, cookBook) => {
@@ -171,14 +106,6 @@ const favoriteRemove = (recipeId, cookBook) => {
   });
 };
 
-const assignContent = (clickedRecipe) => {
-  recipeViewImg.src = `${clickedRecipe.image}`;
-  recipeViewTitle.innerText = `${clickedRecipe.name}`;
-  recipeViewIngredients.innerHTML = displayIngredients(clickedRecipe);
-  recipeViewInstructions.innerHTML = displayInstructions(clickedRecipe);
-  recipeViewCost.innerText = `Total Cost: $${clickedRecipe.total.toFixed(2)}`;
-};
-
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
   if (currentPantry.needsIngredients === true) {
@@ -204,20 +131,20 @@ const closeModal = () => {
 const showSearchResults = () => {
   const nameSearch = currentCollection.filterByName(searchBar.value);
   const ingredientSearch = currentCollection.filterByIngredients([searchBar.value]);
-  showRecipes([...nameSearch, ...ingredientSearch]);
+  domUpdates.showRecipes([...nameSearch, ...ingredientSearch], user);
 };
 
 const showFavoriteMeals = () => {
   currentCollection = user;
   gridTitle.innerText = 'Favorite Meals';
-  showRecipes(user.favoriteRecipes);
+  domUpdates.showRecipes(user.favoriteRecipes, user);
   displayTags(user.tagsList);
 };
 
 const showToCookMeals = () => {
   currentCollection = user;
   gridTitle.innerText = 'Meals to Cook';
-  showRecipes(user.toCook);
+  domUpdates.showRecipes(user.toCook, user);
 };
 
 const viewPantry = () => {
@@ -226,7 +153,7 @@ const viewPantry = () => {
 
 const filterByTags = (collection, tagName) => {
 if (collection.tagsList.includes(tagName)){
-  showRecipes(collection.filterByTags([tagName]));
+  domUpdates.showRecipes(collection.filterByTags([tagName]), user);
   };
 };
 
@@ -242,25 +169,8 @@ const submitIngredient = () => {
 const returnHome = () => {
   currentCollection = cookBook;
   displayTags(cookBook.tagsList);
-  showRecipes(cookBook.recipes);
+  domUpdates.showRecipes(cookBook.recipes, user);
 }
-
-const showHide = (toShow, toHide) => {
-  hide(toHide);
-  show(toShow);
-};
-
-const hide = (toHide) => {
-  toHide.forEach(element => {
-    element.classList.add('hidden');
-  });
-};
-
-const show = (toShow) => {
-  toShow.forEach(element => {
-    element.classList.remove('hidden');
-  });
-};
 
 window.addEventListener('load', loadPage);
 tagDropdown.addEventListener('click', (event) => {
@@ -289,13 +199,13 @@ centerContainer.addEventListener('click', (event) => {
 } else if (event.target.className === 'far fa-star') {
   let targetId = event.target.parentNode.parentNode.id;
   favoriteStore(targetId, cookBook);
-  showRecipes(cookBook.recipes);
+  domUpdates.showRecipes(cookBook.recipes, user);
 } else if (event.target.className === "to-cook") {
   let targetId = event.target.parentNode.id;
   toCookStore(targetId, cookBook);
 } else if (event.target.className === 'fas fa-star'){
   let targetId = event.target.parentNode.parentNode.id;
   favoriteRemove(targetId, cookBook);
-  showRecipes(cookBook.recipes);
+  domUpdates.showRecipes(cookBook.recipes, user);
   };
 });
