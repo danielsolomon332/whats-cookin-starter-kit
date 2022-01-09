@@ -1,9 +1,9 @@
-import './styles.css';
 import {usersData, recipesData, ingredientsData, postIngredient} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 import Pantry from "./classes/PantryClass.js";
 import {domUpdates, hide, show, showHide, displayInstructions, displayIngredients, displayTags, isFavorited, displayPantry, displayPantryIngredients} from "./domUpdates.js";
+import './css/index.scss';
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
