@@ -53,7 +53,7 @@ const loadPage = () => {
   Promise.all([usersData, recipesData, ingredientsData])
     .then(data => {
       user = new User(data[0][getRandomIndex(data[0])]);
-      currentPantry = new Pantry(user.pantry);
+      currentPantry = new Pantry(user.pantry, data[2]);
       ingredients = data[2];
       currentPantry.giveIngredientNames(ingredients);
       cookBook = new RecipeRepository(data[1], data[2]);
@@ -64,7 +64,6 @@ const loadPage = () => {
       setPantryData();
       currentCollection = cookBook;
     });
-    .catch(error => console.log(error))
 };
 
 const setPantryData = () => {
@@ -111,6 +110,7 @@ const favoriteRemove = (recipeId, cookBook) => {
 
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
+  // currentPantry.filterByNames(clickedRecipe);
   if (currentPantry.needsIngredients === true) {
     currentPantry.listIngredients(ingredients);
     modalHeader.innerText = "You Need the Following Ingredients:"

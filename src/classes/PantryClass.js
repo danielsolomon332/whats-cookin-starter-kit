@@ -1,9 +1,11 @@
 class Pantry {
- constructor(ingredients) {
+ constructor(ingredients, allIngredients) {
     this.usersIngredients = ingredients
     this.missingIngredients = []
     this.needsIngredients = false
     this.ingredientNames = [];
+    this.allIngredients = allIngredients
+    this.ids = []
 }
 
 checkIngredients(recipe) {
@@ -16,10 +18,40 @@ checkIngredients(recipe) {
           this.needsIngredients = true;
           item.amountToBuy = ingredient.quantity.amount - item.amount;
           this.missingIngredients.push(item);
+          this.ids.push(item.ingredient);
         }
+        return item
       }
     })
+    if(!requiredIngredient){
+      this.needsIngredients = true;
+      let item = {amount: 0 , amountToBuy: ingredient.quantity.amount, ingredient: ingredient.id, name: this.findName(ingredient.id)}
+      this.missingIngredients.push(item)
+    }
   });
+  console.log(this.missingIngredients)
+  console.log(this.ids)
+  return result
+}
+
+// filterByNames(recipe) {
+//   let item;
+//   const result = recipe.ingredients.forEach(ingredient => {
+//     if(!this.ids.includes(ingredient.id)){
+//       this.needsIngredients = true;
+//       item = {amount: 0 , amountToBuy: ingredient.quantity.amount, ingredient: ingredient.id, name: this.findName(ingredient.id)}
+//       this.missingIngredients.push(item)
+//     }
+//   })
+//   return result
+// }
+
+findName(id) {
+const result = this.allIngredients.find(item => {
+    if(item.id === id) {
+    return item.name;
+    }
+  })
   return result
 }
 

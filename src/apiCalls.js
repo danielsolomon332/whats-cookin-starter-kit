@@ -20,7 +20,7 @@ return fetch(`http://localhost:3001/api/v1/users`, {
   .then(response => {
     if(!response.ok){
       console.log(response.json())
-      throw
+      throw "resonse"
     }
     return response.json()
   })
