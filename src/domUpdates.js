@@ -73,8 +73,8 @@ let domUpdates = {
       acc +=
       `<div class="recipe-card">
         <div class="image-container" id="${recipe.id}">
-        <button class="to-cook">TO COOK</button>
-        <button class="dropdown icon star"><i class="${isFavorited(recipe, user)}"></i></button>
+        <button class="to-cook" aria-label="add recipe to recipies to cook">TO COOK</button>
+        <button class="dropdown icon star" aria-label="favorite this recipe"><i class="${isFavorited(recipe, user)}"></i></button>
         <img class="recipe-image" src=${recipe.image} alt="recipe image">
         </div>
         <h3 class="recipe-title">${recipe.name}</h3>
