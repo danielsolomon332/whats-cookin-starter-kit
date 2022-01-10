@@ -35,6 +35,8 @@ const ingredientName = document.querySelector('#ingredientName');
 const ingredientAmount = document.querySelector('#ingredientAmount');
 const ingredientId = document.querySelector('#ingredientId');
 const formButton = document.querySelector('#formButton');
+const userContent = document.querySelector('#userContent');
+const profileBtn = document.querySelector("#profileBtn");
 
 let cookBook;
 let user;
@@ -118,6 +120,7 @@ const cookRecipe = () => {
       modification.userID = user.id;
       postIngredient(modification)
       .then(data => console.log(data))
+      .catch(error => console.log(error))
     })
     setPantryData();
   }
@@ -166,6 +169,11 @@ const submitIngredient = () => {
   })
 }
 
+const focusOnUserDropDown = () => {
+  show([userContent]);
+}
+
+
 const returnHome = () => {
   currentCollection = cookBook;
   displayTags(cookBook.tagsList);
@@ -187,6 +195,12 @@ formButton.addEventListener('click', (event) => {
   submitIngredient()
 });
 pantryViewButton.addEventListener('click', viewPantry);
+profileBtn.addEventListener('click', (event) => {
+  if(event.target === profileBtn){
+    console.log(" I work!")
+    focusOnUserDropDown()
+  }
+});
 letsCookButton.addEventListener('click', cookRecipe);
 closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);

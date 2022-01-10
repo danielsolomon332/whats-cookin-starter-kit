@@ -27,8 +27,8 @@
     </section>
     <section class="dropdown-section">
       <div class="icon-button">
-        <button class="dropdown" aria-label="your profile" aria-haspopup="true" aria-expanded="false"><i class="fas fa-utensils icon"></i></button>
-        <div class="dropdown-content">
+        <button class="dropdown" aria-labelledby="your profile" aria-haspopup="true" aria-expanded="false" id="profileBtn"><i class="fas fa-utensils icon"></i></button>
+        <div class="dropdown-content" aria-labelledby="your profile" id="userContent">
           <button class="dropdown-items" id="favMeals">Favorited Meals</button><br>
           <button class="dropdown-items" id="toCookMeals">Meals to Cook</button><br>
           <button class="dropdown-items" id="pantryViewButton">Your Pantry</button><br>
@@ -41,7 +41,7 @@
       </div>
       <div class="icon-button">
         <button class="dropdown" aria-label="sort by cost"><i class="fas fa-money-bill-wave icon"></i></button>
-        <div class="dropdown-content">
+        <div class="dropdown-content" aria-expanded="true">
           <button class="dropdown-items">Meals on a Budget</button><br>
           <button class="dropdown-items">Turing Grad Budget</button><br>
           <button class="dropdown-items">Whoa, Bill Gates</button><br>

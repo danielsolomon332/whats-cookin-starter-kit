@@ -79,11 +79,11 @@ h3 {
   z-index: 1;
 }
 
-.icon-button:hover, .dropdown-content, .icon-button:focus{
+.icon-button:hover .dropdown-content {
   display: block;
 }
 
-.dropdown-items:hover, .dropdown-items:focus{
+.dropdown-items:hover{
   background-color: $teal;
   color: $white;
   cursor: pointer;
