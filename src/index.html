@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -14,37 +14,37 @@
   </head>
   <body>
     <header>
-      <h1 class="button-hover" id="mainTitle">What's Cookin</h1>
+      <h1 class="button-hover" id="mainTitle">WHAT'S COOKIN</h1>
       <div class="user-container">
       </div>
     </header>
     <nav>
     <section class="search-container">
       <input class="search-bar" id="searchBar" type="text" placeholder="search recipes">
-      <button class="spy-glass-btn" id="searchBtn">
+      <button class="spy-glass-btn" id="searchBtn" aria-label="search button">
         <i class="fa fa-search"></i>
       </button>
     </section>
     <section class="dropdown-section">
       <div class="icon-button">
-        <button class="dropdown-buttons"><i class="fas fa-utensils icon"></i></button>
-        <div class="dropdown-content">
-          <button type="button" name="button" class="dropdown-items" id="favMeals">Favorited Meals</button>
-          <button type="button" name="button" class="dropdown-items" id="toCookMeals">Meals to Cook</button>
-          <button type="button" name="button" class="dropdown-items" id="pantryViewButton">Your Pantry</button>
+        <button class="dropdown" aria-labelledby="your profile" aria-haspopup="true" aria-expanded="false" id="profileBtn"><i class="fas fa-utensils icon"></i></button>
+        <div class="dropdown-content" aria-labelledby="your profile" id="userContent">
+          <button class="dropdown-items" id="favMeals">Favorited Meals</button><br>
+          <button class="dropdown-items" id="toCookMeals">Meals to Cook</button><br>
+          <button class="dropdown-items" id="pantryViewButton">Your Pantry</button><br>
         </div>
       </div>
       <div class="icon-button">
-        <button class="dropdown-buttons"><i class="fas fa-pepper-hot icon"></i></button>
+        <button class="dropdown" aria-label="sort by tags"><i class="fas fa-pepper-hot icon"></i></button>
         <div class="dropdown-content" id="tagDropdown">
         </div>
       </div>
       <div class="icon-button">
-        <button class="dropdown-buttons"><i class="fas fa-money-bill-wave icon"></i></button>
-        <div class="dropdown-content">
-          <button type="button" name="button" class="dropdown-items">Meals on a Budget</button>
-          <button type="button" name="button" class="dropdown-items">Turing Grad Budget</button>
-          <button type="button" name="button" class="dropdown-items">Whoa, Bill Gates</button>
+        <button class="dropdown" aria-label="sort by cost"><i class="fas fa-money-bill-wave icon"></i></button>
+        <div class="dropdown-content" aria-expanded="true">
+          <button class="dropdown-items">Meals on a Budget</button><br>
+          <button class="dropdown-items">Turing Grad Budget</button><br>
+          <button class="dropdown-items">Whoa, Bill Gates</button><br>
         </div>
       </div>
   </section>

@@ -1,9 +1,9 @@
-import './styles.css';
 import {usersData, recipesData, ingredientsData, postIngredient} from './apiCalls';
 import RecipeRepository from "./classes/RecipeRepository.js";
 import User from "./classes/UsersClass.js";
 import Pantry from "./classes/PantryClass.js";
 import {domUpdates, hide, show, showHide, displayInstructions, displayIngredients, displayTags, isFavorited, displayPantry, displayPantryIngredients} from "./domUpdates.js";
+import './css/index.scss';
 
 const cardsContainer = document.querySelector('#cardsContainer');
 const centerContainer = document.querySelector('#centerContainer');
@@ -35,6 +35,8 @@ const ingredientName = document.querySelector('#ingredientName');
 const ingredientAmount = document.querySelector('#ingredientAmount');
 const ingredientId = document.querySelector('#ingredientId');
 const formButton = document.querySelector('#formButton');
+const userContent = document.querySelector('#userContent');
+const profileBtn = document.querySelector("#profileBtn");
 
 let cookBook;
 let user;
@@ -51,7 +53,7 @@ const loadPage = () => {
   Promise.all([usersData, recipesData, ingredientsData])
     .then(data => {
       user = new User(data[0][getRandomIndex(data[0])]);
-      currentPantry = new Pantry(user.pantry);
+      currentPantry = new Pantry(user.pantry, data[2]);
       ingredients = data[2];
       currentPantry.giveIngredientNames(ingredients);
       cookBook = new RecipeRepository(data[1], data[2]);
@@ -108,6 +110,7 @@ const favoriteRemove = (recipeId, cookBook) => {
 
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
+  // currentPantry.filterByNames(clickedRecipe);
   if (currentPantry.needsIngredients === true) {
     currentPantry.listIngredients(ingredients);
     modalHeader.innerText = "You Need the Following Ingredients:"
@@ -118,6 +121,7 @@ const cookRecipe = () => {
       modification.userID = user.id;
       postIngredient(modification)
       .then(data => console.log(data))
+      .catch(error => console.log(error))
     })
     setPantryData();
   }
@@ -164,7 +168,13 @@ const submitIngredient = () => {
     currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
     setPantryData();
   })
+  .catch(error => console.log(error))
 }
+
+const focusOnUserDropDown = () => {
+  show([userContent]);
+}
+
 
 const returnHome = () => {
   currentCollection = cookBook;
@@ -187,6 +197,12 @@ formButton.addEventListener('click', (event) => {
   submitIngredient()
 });
 pantryViewButton.addEventListener('click', viewPantry);
+profileBtn.addEventListener('click', (event) => {
+  if(event.target === profileBtn){
+    console.log(" I work!")
+    focusOnUserDropDown()
+  }
+});
 letsCookButton.addEventListener('click', cookRecipe);
 closeButton.addEventListener('click', closeModal)
 searchBtn.addEventListener('click', showSearchResults);

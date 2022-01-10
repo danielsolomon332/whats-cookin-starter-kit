@@ -65,6 +65,8 @@ class User {
     });
         return result
     };
+
+    
 };
 
 

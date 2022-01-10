@@ -17,7 +17,13 @@ return fetch(`http://localhost:3001/api/v1/users`, {
   },
   body: JSON.stringify(data),
 })
-  .then(response => response.json())
+  .then(response => {
+    if(!response.ok){
+      console.log(response.json())
+      throw "resonse"
+    }
+    return response.json()
+  })
 
 }
 
