@@ -1,5 +1,6 @@
 @import './_reset.scss';
 @import './_variables.scss';
+@import './_mixins.scss';
 
 * {
   font-family: $palanquin;
@@ -16,7 +17,7 @@ body {
 button {
   border: 0;
   font-size: 20px;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
 }
 
 header {
@@ -24,7 +25,7 @@ header {
   display: inline-flex;
   width: 100%;
   background-color: $white;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
 }
 
 h1 {
@@ -74,7 +75,7 @@ h3 {
   position: absolute;
   background-color: $white;
   min-width: 160px;
-  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  @include box-shadow();
   padding: 12px 16px;
   z-index: 1;
 }
@@ -106,7 +107,7 @@ h3 {
 }
 
 .search-container {
-  display: flex;
+  @include display-flex();
   background-color: $white;
   height: 5vh;
   width: 30vw;
@@ -115,7 +116,7 @@ h3 {
   justify-content: space-between;
   padding: 0 1vw;
   border-radius: 4px;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
 }
 
 .search-bar {
@@ -135,12 +136,12 @@ h3 {
 .search-button {
   background-color: transparent;
   border: none;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
 }
 
 .dropdown-section {
   margin-right: 6vw;
-  display: flex;
+  @include display-flex();
   width: 30vw;
   justify-content: space-between;
 }
@@ -164,7 +165,7 @@ h3 {
 .recipe-card {
   width: 17vw;
   height: 27vh;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
   margin-bottom: 15vh;
 }
 
@@ -214,7 +215,7 @@ h3 {
 
 .ingredients-and-image {
   height: 20%;
-  display: flex;
+  @include display-flex();
   justify-content: space-evenly;
   align-content: center;
 }
@@ -230,14 +231,14 @@ h3 {
 }
 
 .image-display {
-  display: flex;
+  @include display-flex();
   justify-content: center;
   align-items: center;
 }
 
 .recipe-view-image {
   border-radius: 3px;
-  box-shadow: 1px 1px 6px -3px #26222d;
+  @include box-shadow();
 }
 
 .modal {

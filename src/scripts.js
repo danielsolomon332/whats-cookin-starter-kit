@@ -110,7 +110,6 @@ const favoriteRemove = (recipeId, cookBook) => {
 
 const cookRecipe = () => {
   currentPantry.checkIngredients(clickedRecipe);
-  // currentPantry.filterByNames(clickedRecipe);
   if (currentPantry.needsIngredients === true) {
     currentPantry.listIngredients(ingredients);
     modalHeader.innerText = "You Need the Following Ingredients:"
@@ -199,7 +198,6 @@ formButton.addEventListener('click', (event) => {
 pantryViewButton.addEventListener('click', viewPantry);
 profileBtn.addEventListener('click', (event) => {
   if(event.target === profileBtn){
-    console.log(" I work!")
     focusOnUserDropDown()
   }
 });
