@@ -64,6 +64,7 @@ const loadPage = () => {
       setPantryData();
       currentCollection = cookBook;
     });
+    .catch(error => console.log(error))
 };
 
 const setPantryData = () => {
@@ -167,6 +168,7 @@ const submitIngredient = () => {
     currentPantry.addIngredients(ingredientId.value, ingredientAmount.value, ingredientName.value)
     setPantryData();
   })
+  .catch(error => console.log(error))
 }
 
 const focusOnUserDropDown = () => {
